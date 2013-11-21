@@ -8,25 +8,19 @@ What is the largest prime factor of the number 600851475143?
 $magic = 600851475143;
 
 function isPrime($x) {
-	// 1 and 2 are always prime
-	if($x == 1 || $x == 2) {
-		return true;
-	}
-	// all even numbers are not prime.
-	if($x % 2 == 0) {
-		return false;
-	}
+	if($x == 1) return false;
+	if($x < 4) return true;
+	if($x % 2 == 0) return false;
+	if($x < 9) return true;
+	if($x % 3 == 0) return false;
 
-	// check up to the sqrt of $x for divisibility,
-	// if nothing divides evenly the number is prime.
-	$sqrt = floor(sqrt($x));
-
-	for($i = 3; $i < $sqrt; $i += 2) {
-		if($x % $i == 0) {
-			return false;
-		}
+	$r = floor(sqrt($x));
+	$f = 5;
+	while($f <= $r) {
+		if($x % $f == 0) return false;
+		if($x % ($f + 2) == 0) return false;
+		$f += 6;
 	}
-
 	return true;
 }
 
