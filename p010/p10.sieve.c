@@ -1,30 +1,30 @@
 #include <stdio.h>
+#include <math.h>
 
 #define LIMIT 2000000
 
 int main(int argc, char* argv[]) {
-	int sieve[LIMIT];
-
-	unsigned long long total = 0;
-	int i;
-	for(i = 0; i < LIMIT; i++) {
-		sieve[i] = i;
+	
+	int sievebound = (LIMIT - 1) / 2;
+	char sieve[sievebound];
+	for(int i = 1; i < sievebound; i++) {
+		sieve[i] = 1;
 	}
-	sieve[0] = 0; // mark 0 and 1 as non-prime
-	sieve[1] = 0;
+	int crosslimit = (int)floor(sqrt((double)sievebound));
 
-	for(i = 0; i < LIMIT; i++) {
-		if(sieve[i] != 0) {
-			int p = sieve[i];
-			for(int j = p + p; j < LIMIT; j += p) {
+	for(int i = 1; i < crosslimit; i++) {
+		if(sieve[i] == 1) {
+			for(int j = 2 * i * (i + 1); j < sievebound; j += 2 * i + 1) {
 				sieve[j] = 0;
 			}
 		}
 	}
 
-	// all non-primes are set to 0
-	for(i = 0; i < LIMIT; i++) {
-		total += sieve[i];
+	unsigned long long total = 2;
+	for(int i = 1; i < sievebound; i++) {
+		if(sieve[i] == 1) {
+			total += 2 * i + 1;
+		}
 	}
 	
 	printf("%llu\n", total);
