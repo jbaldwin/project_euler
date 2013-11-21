@@ -3,37 +3,29 @@
 ini_set('memory_limit', '1024M');
 
 $limit = 2000000;
-$climit = floor(sqrt($limit));
+$sievebound = ($limit - 1) / 2;
 $sieve = array();
-
-// mark all numbers from 2 to climit as potentially prime
-for($i = 0; $i < $limit; $i++) {
+for($i = 1; $i < $sievebound; $i++) {
 	array_push($sieve, true);
 }
-$sieve[0] = false;
-$sieve[1] = false;
+$crosslimit = sqrt($sievebound);
 
-// mark all multiples of 2 as non-prime
-for($i = 4; $i < $limit; $i += 2) {
-	$sieve[$i] = false;
-}
-
-for($i = 3; $i < $climit; $i += 2) {
+for($i = 1; $i < $crosslimit; $i++) {
 	if($sieve[$i] == true) {
-		for($m = $i * $i; $m < $limit; $m += $i * 2) {
-			$sieve[$m] = false;
+		for($j = 2 * $i * ($i + 1); $j < $sievebound; $j += 2 * $i + 1) {
+			$sieve[$j] = false;
 		}
 	}
 }
 
-$total = 0;
-for($i = 0; $i < $limit; $i++) {
+$sum = 2;
+for($i = 1; $i < $sievebound; $i++) {
 	if($sieve[$i] == true) {
-		$total += $i;
+		$sum += 2 * $i + 1;
 	}
 }
 
-print $total . "\n";
+print $sum . "\n";
 
 ?>
 
