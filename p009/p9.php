@@ -12,12 +12,11 @@ Find the product abc.
 
 for($a = 1; $a < 998; $a++) {
 	for($b = 1; $b < 998; $b++) {
-		$aa = $a * $a;
-		$bb = $b * $b;
-		$cc = $aa + $bb;
-		$c = sqrt($cc);
+		$c = 1000 - $a - $b;
+		if($c <= 0)
+			continue;
 
-		if($a + $b + $c == 1000) {
+		if($a * $a + $b * $b == $c * $c) {
 			print $a . " " . $b . " " . $c . "\n";
 			print $a * $b * $c . "\n";
 			exit(0);
