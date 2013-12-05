@@ -10,37 +10,85 @@ lexicographic order.  The lexicographic permutations of 0, 1, 2 are:
 What is the millionth lexicographic permutation of the digits 0, 1, 2, 3, 4, 5, 6, 7, 8 and 9?
 **/
 
-ini_set('memory_limit', '2048M');
+function factorial($n) {
+	$total = 1;
 
+	if($n <= 1) return 1;
+	for($i = $n; $i > 0; $i--) {
+		$total *= $i;
+	}
 
-$permutations = array();
+	return $total;
+}
 
-function perms($numbers, $rest)  {
-	global $permutations;
+function lexicographic_index($p) {
+	$result = 0;
 
-	if(strlen($rest) == 0) {
-		array_push($permutations,  $numbers);
-		if(count($permutations) % 10000 == 0) print count($permutations) . "\n";
-	} else {
-		for($i = 0; $i < strlen($rest); $i++) {
-			perms($numbers . $rest[$i], str_replace($rest[$i], "", $rest));
+	for($j = 0; $j < count($p); $j++) {
+		$k = 0;
+		for($i = $j + 1; $i < count($p); $i++) {
+			if($p[$i] < $p[$j]) {
+				$k += 1;
+			}
 		}
+
+		$result += $k * factorial(count($p) - $j - 1);
+	}
+
+	return $result;
+}
+
+function lexicographic_followers($p) {
+	return factorial(count($p)) - lexicographic_index($p) - 1;
+}
+
+function print_perm($p) {
+	for($i = 0; $i < count($p); $i++) {
+		print $p[$i];
 	}
 }
 
-
 $limit = 1000000;
-$numbers = '0123456789';
-//$numbers = '012';
-perms("", $numbers);
-//sort($perms, SORT_NUMERIC);
-//$perms = &array_unique($perms);
+$p = array(0,0,0,0,0,0,0,0,0,0);
+$nums = array(0,1,2,3,4,5,6,7,8,9);
 
+for($i = 0; $i < count($p); $i++) {
 
-print count($permutations) . "\n";
-//var_dump($permutations);
+	// determine the next maximum number for the next slot in the permutation
+	// go through the remaining available numbers
+	// append the 
+	$max = -1;
+	$max_index = -1;
+	for($j = 0; $j < count($nums); $j++) {
+		$p[$i] = $nums[$j];
+		for($k = 0; $k < count($nums); $k++) {
+			if(!in_array($nums[$k], $p) && $i + $k + 1 < count($p)) {
+				$p[$i + $k + 1] = $nums[$k];
+			}
+		}
+		$t = lexicographic_index($p);
 
-print $permutations[$limit] . "\n";
+		print "max=" . $max . " ";
+		print_perm($p);
+		print " current=" . $t . "\n";
+		if($t >= $limit) continue;
+		if($t > $max) {
+			$max = $t;
+			$max_index = $j;
+		}
+	}
+
+	$p[$i] = $nums[$max_index];
+	array_splice($nums, $max_index, 1);
+	print "picked: " . $p[$i] . "\n\n";
+}
+
+print_perm($p);
+print " " . lexicographic_index($p) . "\n";
+
+// answer determined by manually checking hightest to lowest numbers, the algorithm
+// above does the same but automated
+//print lexicographic_index(array(2,7,8,3,9,1,5,4,6,0)) . "\n";
 
 ?>
 
