@@ -15,8 +15,10 @@ How many different ways can £2 be made using any number of coins?
 $currency = array(100, 50, 20, 10, 5, 2, 1);
 
 function combos($i, $start) {
-	global $currency;
+	global $currency;	
 
+	// only 1's are left so just exit out with 1 combination remaining
+	if($start == 6) return 1;
 	// base case when 200p has been achieved return a single combination
 	if($i == 200) return 1;
 

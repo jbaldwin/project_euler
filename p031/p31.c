@@ -3,6 +3,8 @@
 int currency[] = { 100, 50, 20, 10, 5, 2, 1 };
 
 int combos(int i, int start) {
+	
+	if(start == 6) return 1;
 	if(i == 200) return 1;
 
 	int combinations = 0;
