@@ -16,8 +16,8 @@ $max_c = 0;
 
 for($p = 3; $p <= 1000; $p++) {
 	$count = 0;
-	for($a = 1; $a < $p; $a++) {
-	for($b = $a; $b < $p; $b++) {
+	for($a = 1; $a < $p / 2; $a++) {
+	for($b = $a; $b < $p / 2; $b++) {
 		$c = $p - $a - $b;
 
 		if($a + $b <= $c) continue;
