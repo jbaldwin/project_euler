@@ -7,23 +7,13 @@ For example, 2143 is a 4-digit pandigital and is also prime.
 What is the largest n-digit pandigital prime that exists.
 **/
 
+require_once "../lib/prime.php";
+
 ini_set('memory_limit', '1024M');
 
 $limit = 10000000;
-$sievebound = ($limit - 1) / 2;
-$sieve = array();
-for($i = 1; $i < $sievebound; $i++) {
-        array_push($sieve, true);
-}
-$crosslimit = sqrt($sievebound);
-
-for($i = 1; $i < $crosslimit; $i++) {
-        if($sieve[$i] == true) {
-                for($j = 2 * $i * ($i + 1); $j < $sievebound; $j += 2 * $i + 1) {
-                        $sieve[$j] = false;
-                }
-        }
-}
+$sieve = prime_sieve($limit);
+$sievebound = count($sieve);
 
 $pandigital = 0;
 for($i = 1; $i < $sievebound; $i++) {

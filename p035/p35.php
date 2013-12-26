@@ -9,22 +9,7 @@ There are thirteen such primes below 100: 2, 3, 5, 7, 11, 13, 17, 31, 37, 71, 73
 How many circular primes are there below one million?
 **/
 
-function is_prime($n) {
-	if($n <= 1) return false;
-	if($n < 4) return true;
-	if($n % 2 == 0) return false;
-	if($n < 9) return true;
-	if($n % 3 == 0) return false;
-
-	$r = floor(sqrt($n));
-	$f = 5;
-	while($f <= $r) {
-		if($n % $f == 0) return false;
-		if($n % ($f + 2) == 0) return false;
-		$f += 6;
-	}
-	return true;
-}
+require_once "../lib/prime.php";
 
 function is_circular_prime($prime, $circular_primes) {
 

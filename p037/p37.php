@@ -9,40 +9,26 @@ Find the sum of the only eleven primes that are both truncatable from left to ri
 
 Note: 2, 3, 5, and 7 are not considered to be truncatable primes.
 **/
+
+require_once "../lib/prime.php";
+
 $primes_cache = array();
-function is_prime($n) {
+function is_prime_cache($n) {
 	global $primes_cache;
 
 	if(array_key_exists($n, $primes_cache)) return true;
 
-	if(is_prime_cache($n)) {
+	if(is_prime($n)) {
 		$primes_cache[$n] = $n;
 		return true;
 	}
 	return false;
 }
 
-function is_prime_cache($n) {
-	if($n <= 1) return false;
-	if($n < 4) return true;
-	if($n % 2 == 0) return false;
-	if($n < 9) return true;
-	if($n % 3 == 0) return false;
-
-	$r = floor(sqrt($n));
-	$f = 5;
-	while($f <= $r) {
-		if($n % $f == 0) return false;
-		if($n % ($f + 2) == 0) return false;
-		$f += 6;
-	}
-	return true;
-}
-
 function left_trunc($s) {
 	$len = strlen($s);
 	for($j = 0; $j < $len; $j++) {
-		if(!is_prime(intval($s))) return false;
+		if(!is_prime_cache(intval($s))) return false;
 		$s = substr($s, 1);
 	}
 	return true;
@@ -51,7 +37,7 @@ function left_trunc($s) {
 function right_trunc($s) {
 	$len = strlen($s);
 	for($j = 0; $j < $len; $j++) {
-		if(!is_prime(intval($s))) return false;
+		if(!is_prime_cache(intval($s))) return false;
 		$s = substr($s, 0, -1);
 	}
 	return true;
@@ -91,7 +77,7 @@ function find_trunc($i) {
 		array_push($candidates, $i . $s);
 	}
 	foreach($candidates as $c) {
-		if(is_prime($c)) {
+		if(is_prime_cache($c)) {
 			//print $c . " is prime.\n";
 			if(is_trunc_prime($c)) {
 				if(!in_array($c, $t_primes)) {

@@ -25,25 +25,9 @@ number of primes for consecutive values of n, starting with n = 0.
 
 **/
 
+require_once '../lib/prime.php';
+
 // Note that b > 1 must be true since when n = 0 then b must be prime
-
-
-function is_prime($n) {
-	if($n <= 1) return false;
-	if($n < 4) return true;
-	if($n % 2 == 0) return false;
-	if($n < 9) return true;
-	if($n % 3 == 0) return false;
-
-	$r = floor(sqrt($n));
-	$f = 5;
-	while($f <= $r) {
-		if($n % $f == 0) return false;
-		if($n % ($f + 2) == 0) return false;
-		$f += 6;
-	}
-	return true;
-}
 
 $max_n = 0;
 $product = 0;

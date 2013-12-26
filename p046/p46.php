@@ -18,52 +18,22 @@ It turns out that the conjecture was false.
 What is the smallest odd composite that cannot be written as the sum of a prime and twice a square?
 **/
 
+require_once "../lib/prime.php";
+
 ini_set('memory_limit', '1024M');
 
-function is_prime($n) {
-	if($n <= 1) return false;
-	if($n < 4) return true;
-	if($n % 2 == 0) return false;
-	if($n < 9) return true;
-	if($n % 3 == 0) return false;
-
-	$r = floor(sqrt($n));
-	$f = 5;
-	while($f <= $r) {
-		if($n % $f == 0) return false;
-		if($n % ($f + 2) == 0) return false;
-		$f += 6;
-	}
-	return true;
-}
-
 $limit = 100000;
-$sievebound = ($limit - 1) / 2;
-$sieve = array();
-for($i = 1; $i < $sievebound; $i++) {
-	array_push($sieve, true);
-}
-$crosslimit = sqrt($sievebound);
-for($i = 1; $i < $crosslimit; $i++) {
-	if($sieve[$i] == true) {
-		for($j = 2 * $i * ($i + 1); $j < $sievebound; $j += 2 * $i + 1) {
-			$sieve[$j] = false;
-		}
-	}
-}
-
-function value($i) {
-	return 2 * $i + 1;
-}
+$sieve = prime_sieve($limit);
+$sievebound = count($sieve);
 
 for($c = 1; $c < $sievebound; $c++) {
 	if($sieve[$c] == false) {
-		$cval = value($c);
+		$cval = prime_sieve_value($c);
 
 		$found = false;
 		for($p = 1; $p < $c; $p++) {
 			if($sieve[$p] == true) {
-				$pval = value($p);
+				$pval = prime_sieve_value($p);
 				// calculate the sqrt and take the integer value
 				// if the reverse operation matches $cval goldbach's
 				// conjecture works
@@ -80,7 +50,7 @@ for($c = 1; $c < $sievebound; $c++) {
 		}
 	}
 }
-print value($c) . "\n";
+print prime_sieve_value($c) . "\n";
 
 ?>
 

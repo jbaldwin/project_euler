@@ -17,23 +17,10 @@ The first three consecutive numbers to have three distinct prime factors are:
 Find the first four consecutive integers to have four distinct prime factors.  What is the first of these numbers?
 **/
 
+require_once "../lib/prime.php";
+
 function prime_factors_count($n) {
-	$factors = array();
-	$d = 2;
-	while($n > 1) {
-		while($n % $d == 0) {
-			array_push($factors, $d);
-			$n /= $d;
-		}
-		$d += 1;
-		if($d * $d > $n) {
-			if($n > 1) {
-				array_push($factors, $n);
-			}
-			break;
-		}
-	}
-	return count(array_unique($factors));
+	return count(array_unique(prime_factors($n)));
 }
 
 $n = 2;
