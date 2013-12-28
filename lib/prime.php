@@ -48,13 +48,29 @@ function prime_sieve($limit) {
 
 /**
  * Returns the actual value at $index in a prime sieve.
- * @param index The index value in the prime sieve.  Must be >= 1.
+ * @param $index The index value in the prime sieve.  Must be >= 1.
  * @return The actual value at $index in the prime sieve.
  **/
 function prime_sieve_value($index) {
+	if($index == 0) return 2;
 	return 2 * $index + 1;
 }
 
+/**
+ * Returns the index in the prime sieve for prime $prime.
+ * @param $prime The prime to retrieve its index int he sieve.
+ * @return The index for prime $prime in the prime sieve.
+ **/
+function prime_sieve_index($prime) {
+	return ($prime - 1) / 2;
+}
+
+/**
+ * Calculates the prime factors for the number $n.
+ * Returns all prime factors with duplicates and unsorted.
+ * @param $n The number to calculate all prime factors for.
+ * @return Array<int> Prime factors for the number $n.
+ **/
 function prime_factors($n) {
 	$factors = array();
 	$d = 2;
