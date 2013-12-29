@@ -21,11 +21,24 @@ function combination($n, $r) {
 	return gmp_div(gmp_fact($n), gmp_mul(gmp_fact($r), gmp_fact($n - $r)));
 }
 
-$coount = 0;
-for($n = 2; $n <= 100; $n++) {
-	for($r = 1; $r <= $n; $r++) {
-		if(gmp_cmp(combination($n, $r), "1000000") > 0) {
+$count = 0;
+for($n = 23; $n <= 100; $n++) {
+	$start = floor($n / 2);
+
+	// $n/2 only occurs once
+	if($start * 2 == $n) {
+		if(gmp_cmp(combination($n, $start), "1000000") > 0) {
 			$count++;
+		}
+	}
+
+	// make sure we are above $n/2
+	if($start <= ($n / 2)) $start++;
+
+	// all other values occur above and below $n/2 so count it twice
+	for($r = $start; $r <= $n; $r++) {
+		if(gmp_cmp(combination($n, $r), "1000000") > 0) {
+			$count+=2;
 		}
 	}
 }
