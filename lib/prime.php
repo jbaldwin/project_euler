@@ -62,6 +62,7 @@ function prime_sieve_value($index) {
  * @return The index for prime $prime in the prime sieve.
  **/
 function prime_sieve_index($prime) {
+	if($prime == 2) return 0;
 	return ($prime - 1) / 2;
 }
 
