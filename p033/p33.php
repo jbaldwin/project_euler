@@ -12,6 +12,8 @@ containing two digits in the numerator and denominator.
 If the product of these four fractions is given in its lowest commo terms, find the value of the denominator.
 **/
 
+require_once "../lib/fractions.php";
+
 $fractions = array();
 
 for($n = 10; $n <= 99; $n++) {
@@ -49,14 +51,15 @@ foreach($fractions as $f) {
 }
 
 // reduce the fraction
-for($i = $numerator; $i >= 1; $i--) {
+fraction_reduce($numerator, $denominator);
+/**for($i = $numerator; $i >= 1; $i--) {
 	if($numerator % $i == 0 &&
 	   $denominator % $i == 0) {
 		$numerator /= $i;
 		$denominator /= $i;
 		break;
 	}
-}
+}**/
 
 print $numerator . "/" . $denominator . " = " . $numerator / $denominator . "\n";
 
