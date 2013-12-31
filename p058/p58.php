@@ -46,7 +46,7 @@ do {
 	$sideLength += 2;
 
 	$percent = bcdiv(strval($primeCount), strval($totalCount));
-	print $primeCount . " " . $totalCount . ", " . $percent . " " . $sideLength .  "\n";
+	//print $primeCount . " " . $totalCount . ", " . $percent . " " . $sideLength .  "\n";
 
 } while(bccomp($percent, "0.1") != -1 );
 
