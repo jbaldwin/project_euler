@@ -26,11 +26,14 @@ diagonals first falls below 10%?
 
 require_once "../lib/prime.php";
 
+bcscale(32);
+
 $primeCount = 0;
-$totalCount = 0;
+$totalCount = 1;
 
 $n = 1;
 $step = 2;
+$sideLength = 1;
 
 do {
     for($i = 0; $i < 4; $i++) {
@@ -38,13 +41,16 @@ do {
         if(is_prime($n)) $primeCount++;
     }
 
-
-    print ($primeCount / $totalCount) . ", " . $n . ", " . $step . "\n";
     $totalCount += 4;
     $step += 2;
-} while(bccomp(bcdiv(strval($primeCount), strval($totalCount)), "0.1") != -1);
+	$sideLength += 2;
 
-print ($step - 1) . "\n";
+	$percent = bcdiv(strval($primeCount), strval($totalCount));
+	print $primeCount . " " . $totalCount . ", " . $percent . " " . $sideLength .  "\n";
+
+} while(bccomp($percent, "0.1") != -1 );
+
+print $sideLength . "\n";
 
 ?>
 
