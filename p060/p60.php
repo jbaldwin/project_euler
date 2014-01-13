@@ -14,10 +14,10 @@ function is_prime_cache($p) {
     return $primes[$p];
 }
 
-for($a = 2; $a < $stop; $a++) {
+for($a = 3; $a < $stop; $a += 2) {
     if(!is_prime_cache($a)) continue;
 
-for($b = $a + 1; $b < $stop; $b++) {
+for($b = $a + 2; $b < $stop; $b += 2) {
     if(!is_prime_cache($b)) continue;
 
     $ab = $a . $b;
@@ -26,7 +26,7 @@ for($b = $a + 1; $b < $stop; $b++) {
     if(!is_prime_cache($ab)) continue;
     if(!is_prime_cache($ba)) continue;
 
-for($c = $b + 1; $c < $stop; $c++) {
+for($c = $b + 2; $c < $stop; $c += 2) {
     if(!is_prime_cache($c)) continue;
 
     $ac = $a . $c;
@@ -39,7 +39,7 @@ for($c = $b + 1; $c < $stop; $c++) {
     if(!is_prime_cache($ca)) continue;
     if(!is_prime_cache($cb)) continue;
 
-for($d = $c + 1; $d < $stop; $d++) {
+for($d = $c + 2; $d < $stop; $d += 2) {
     if(!is_prime_cache($d)) continue;
 
     $ad = $a . $d;
@@ -58,7 +58,7 @@ for($d = $c + 1; $d < $stop; $d++) {
     if(!is_prime_cache($dc)) continue;
 
 
-for($e = $d + 1; $e < $stop; $e++) {
+for($e = $d + 2; $e < $stop; $e += 2) {
     if(!is_prime_cache($e)) continue;
 
     $ae = $a . $e;
