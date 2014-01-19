@@ -10,9 +10,13 @@ permutations of its digits which are also cube.
 Find the smallest cube for which exactly five permutations of its digits are cube.
 **/
 
-function create_permutation_table($n) {
-    $s = strval($n);
-    
+ini_set('memory_limit', '256M');
+
+$stdin = fopen("php://stdin", "r");
+$start = 100;
+$stop = 10000;
+
+function create_permutation_table($s) {
     $table = array(
         '0' => 0, 
         '1' => 0,
@@ -34,25 +38,30 @@ function create_permutation_table($n) {
 }
 
 $cube_tables = array();
-for($i = 100; $i < 10000; $i++) {
-    $cube = $i * $i * $i;
+for($i = $start; $i < $stop; $i++) {
+	$s = strval($i);
+	$cube = bcpow($s, "3");
     $cube_tables[$i] = array($cube, create_permutation_table($cube));
 }
 
 $cube_matches = array();
-for($i = 100; $i < 1000; $i++) {
+for($i = $start; $i < $stop; $i++) {
     $matches = 1;
-    for($j = 100; $j < 1000; $j++) {
+    for($j = $start; $j < $stop; $j++) {
         if($i == $j) continue;
 
-        if($cube_tables[$j] == $cube_tables[$i]) $matches++;
+        if($cube_tables[$j][1] == $cube_tables[$i][1]) $matches++;
     }
-    $cube_matches[$i] = $matches;
+	if($matches >= 5) {
+		$cube_matches[$i] = $matches;
+		break;
+	}
 }
 
-for($i = 100; $i < 1000; $i++) {
-    if($cube_matches[$i] == 5) print $i . " (5)\t" . ($i * $i * $i) . "\n";
-    if($cube_matches[$i] == 3) print $i . " (3)\t" . ($i * $i * $i) . "\n";
+foreach($cube_matches as $i => $m) {
+    print $i . " (" . $m . ")\t\t" . ($i * $i * $i) . "\n";
+	//if($m == 4) print $i . " (4)\t" . ($i * $i * $i) . "\n";
+    //if($m == 3) print $i . " (3)\t" . ($i * $i * $i) . "\n";
 }
 
 ?>
