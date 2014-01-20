@@ -55,7 +55,7 @@ for($i = $start; $i < $stop; $i++) {
 
 foreach($cube_counts as $c) {
 	if($c[1] >= 5) {
-		print $c[0] . " cubed = " . ($c[0] * $c[0] * $c[0]) . "\n";
+		print ($c[0] * $c[0] * $c[0]) . "\n";
 		break;
 	}
 }

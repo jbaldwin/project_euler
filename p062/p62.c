@@ -1,59 +1,100 @@
+#include <stdlib.h>
 #include <stdio.h>
 #include <malloc.h>
-#include <sys/resource.h>
+#include <memory.h>
+#include <stdbool.h>
 
-char* create_table(unsigned long long n) {
+#include <glib.h>
 
-	char* table = malloc(sizeof(char) * 10);
+#include <proc/readproc.h>
 
-	for(int i = 0; i < 10; i++) {
-		table[i] = 0;
-	}
+typedef struct cube_t {
+	unsigned int matches;
+	unsigned long long i;
 
-	char found = 0;
+} cube_t;
+
+int count_digits(unsigned long long n, int* digits) {
+	bool found = false;
 	unsigned long long divisor = 1000000000000;
+	int count = 0;
 	while(divisor > 0) {
+		// ignore all leading zeros
 		int digit = n / divisor;
 		if(!found && digit) {
-			found = 1;
+			 found = true;
 		}
-		if(found) table[digit]++;
+		if(found) { 
+			digits[digit]++;
+			count++;
+		}
 		n %= divisor;
 		divisor /= 10;
 	}
-
-	return table;
+	return count;
 }
 
-int tables_equal(char* t1, char* t2) {
-	for(int i = 0; i < 10; i++) {
-		if(t1[i] != t2[i]) return 0;
+char digit2char(int digit) {
+	return '0' + digit;
+}
+
+char* create_key(int* digits, int num_digits) {
+	char* key = malloc(sizeof(char) * num_digits + 1);
+	memset(key, '\0', num_digits + 1);
+
+	int key_pos = 0;
+	for(int current_digit = 0; current_digit < 10; current_digit++) {
+		for(int n_digits = 0; n_digits < digits[current_digit];	n_digits++) {
+			key[key_pos] = digit2char(current_digit);
+			key_pos++;
+		}
 	}
-	return 1;
+	return key;
+}
+
+void find(gpointer key, gpointer value, gpointer user_data) {
+	cube_t* cube = (cube_t*)value;
+	if(cube->matches >= 5) {
+		printf("%llu\n", cube->i * cube->i * cube->i);
+		exit(0);
+	}
+}
+
+void insert(GHashTable* ht, char* key, unsigned long long i) {
+	cube_t* prev = (cube_t*)g_hash_table_lookup(ht, key);
+
+	if(prev == NULL) {
+		cube_t* cube = malloc(sizeof(cube_t));
+		cube->i = i;
+		cube->matches = 1;
+		g_hash_table_insert(ht, key, cube);
+	} else {
+		prev->matches++;
+		g_hash_table_insert(ht, key, prev);
+	}
 }
 
 int main(int argc, char* argv[]) {
 
 	int stop = 10000;
-	char** tables = malloc(sizeof(char*) * stop);
 
-	// generate digit tables
-	for(unsigned long long i = 0; i < stop; i++) {
+	GHashTable* counts = g_hash_table_new(
+		g_str_hash,
+		g_str_equal);
+
+	for(unsigned long long i = 100; i < stop; i++) {
 		unsigned long long cube = i * i * i;
-		tables[i] =  create_table(cube);
+
+		int digits[10] = { 0 };
+		int num_digits = count_digits(cube, digits);
+
+		char* key = create_key(digits, num_digits);
+
+		insert(counts, key, i);
 	}
-	// count the number of matches
-	for(int i = 0; i < stop; i++) {
-		char matches = 1;
-		for(int j = 0; j < stop; j++) {
-			if(i == j) continue;
-			matches += tables_equal(tables[i], tables[j]);
-		}
-		if(matches >= 5) {
-			unsigned long long llu = i;
-			printf("%i cubed = %llu\n", i, llu * llu * llu);
-			break;
-		}
-	}
+
+	g_hash_table_foreach(counts, find, NULL);
+
 	return 0;
 }
+
