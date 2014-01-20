@@ -1,6 +1,8 @@
 <?php
 
 /**
+Largest product in a series
+
 Find the greatest product of five consecutive digits in the 1000-digit number.
 
 73167176531330624919225119674426574742355349194934
@@ -60,7 +62,7 @@ for($i = 0; $i < strlen($n) - 5; $i++) {
 	$max = max($max, product($n, $i));
 }
 
-print $max;
+print $max . "\n";
 
 ?>
 
