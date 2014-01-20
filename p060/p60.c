@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "../lib/prime.c"
+#include "../lib/prime.h"
 
 int concat(int a, int b) {
     int p = 1;
