@@ -7,15 +7,7 @@ The sum of these multiples is 23.
 Find the sum of all multiples of 3 or 5 below 1000.
 **/
 
-function multiple($num) {
-	return ($num % 3 == 0 || $num % 5 == 0) ? $num : 0;	
-}
-
-$total = 0;
-for($i = 0; $i < 1000; $i++) {
-	$total += multiple($i);
-}
-
-echo $total . "\n";
+function multiple($r, $n) { return $r + (($n % 3 == 0 || $n % 5 == 0) ? $n : 0); }
+print array_reduce(range(0, 999), "multiple", 0) . "\n";
 
 ?>
