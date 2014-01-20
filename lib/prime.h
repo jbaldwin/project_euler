@@ -19,6 +19,41 @@ bool is_prime(int n) {
     return true;
 }
 
+unsigned int* prime_sieve(int limit, unsigned int* num_primes) {
+	unsigned int sievebound = (limit - 1) / 2;
+	char sieve[sievebound];
+	unsigned int crosslimit = floor(sqrt(sievebound));
+	for(unsigned int i = 1; i < sievebound; i++) {
+		sieve[i] = 1;
+	}
+
+	for(unsigned int i = 1; i < crosslimit; i++) {
+		if(sieve[i]) {
+			for(unsigned int j = 2 * i * (i + 1); j < sievebound; j += 2 * i + 1) {
+				sieve[j] = 0;
+			}
+		}
+	}
+
+	unsigned int num = 1;
+	for(unsigned int i = 1; i < sievebound; i++) {
+		if(sieve[i]) num++;
+	}
+
+	unsigned int* primes = malloc(sizeof(unsigned int) * num);
+	primes[0] = 2;
+	int p = 1;
+	for(int i = 1; i < sievebound; i++) {
+		if(sieve[i]) {
+			primes[p] = 2 * i + 1;
+			p++;
+		}
+	}
+	
+	*num_primes = num;
+	return primes;
+}
+
 unsigned long long* prime_factors(unsigned long long n, int* out_num_factors) {
 	int count = 0;
 	int size = 8;

@@ -43,27 +43,17 @@ function prime_sieve($limit) {
 			}
 		}
 	}
-	return $sieve;
-}
 
-/**
- * Returns the actual value at $index in a prime sieve.
- * @param $index The index value in the prime sieve.  Must be >= 1.
- * @return The actual value at $index in the prime sieve.
- **/
-function prime_sieve_value($index) {
-	if($index == 0) return 2;
-	return 2 * $index + 1;
-}
+	$primes = array();
+	$primes[] = 2;
+	for($i = 1; $i < $sievebound; $i++) {
+		if($sieve[$i]) {
+			$primes[] = 2 * $i + 1;
+		}
+	}
 
-/**
- * Returns the index in the prime sieve for prime $prime.
- * @param $prime The prime to retrieve its index int he sieve.
- * @return The index for prime $prime in the prime sieve.
- **/
-function prime_sieve_index($prime) {
-	if($prime == 2) return 0;
-	return ($prime - 1) / 2;
+	unset($sieve);
+	return $primes;
 }
 
 /**

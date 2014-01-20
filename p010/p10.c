@@ -1,11 +1,13 @@
 #include <stdio.h>
 #include <math.h>
 
+#include "../lib/prime.h"
+
 #define LIMIT 2000000
 
 int main(int argc, char* argv[]) {
 	
-	int sievebound = (LIMIT - 1) / 2;
+/*	int sievebound = (LIMIT - 1) / 2;
 	char sieve[sievebound];
 	for(int i = 1; i < sievebound; i++) {
 		sieve[i] = 1;
@@ -18,13 +20,14 @@ int main(int argc, char* argv[]) {
 				sieve[j] = 0;
 			}
 		}
-	}
+	}*/
 
-	unsigned long long total = 2;
-	for(int i = 1; i < sievebound; i++) {
-		if(sieve[i] == 1) {
-			total += 2 * i + 1;
-		}
+	unsigned int num_primes;
+	unsigned int* primes = prime_sieve(LIMIT, &num_primes);
+
+	unsigned long long total = 0;
+	for(int i = 0; i < num_primes; i++) {
+			total += primes[i];
 	}
 	
 	printf("%llu\n", total);

@@ -2,17 +2,14 @@
 
 require_once "../lib/prime.php";
 
-ini_set('memory_limit', '1024M');
+ini_set('memory_limit', '256M');
 
 $limit = 2000000;
-$sieve = prime_sieve($limit);
-$sievebound = count($sieve);
+$primes = prime_sieve($limit);
 
-$sum = 2;
-for($i = 1; $i < $sievebound; $i++) {
-	if($sieve[$i] == true) {
-		$sum += prime_sieve_value($i);
-	}
+$sum = 0;
+for($i = 0; $i < count($primes); $i++) {
+	$sum += $primes[$i];
 }
 
 print $sum . "\n";
