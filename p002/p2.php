@@ -21,6 +21,6 @@ while($next <= 4000000) {
 	$curr = $next;
 }
 
-echo $total . "\n";
+print $total . "\n";
 
 ?>
