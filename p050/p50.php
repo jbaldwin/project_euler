@@ -25,19 +25,21 @@ $maxlen = 0;
 $max = -1;
 
 for($i = $sievebound - 1; $i >= $sievebound - 10000; $i--) {
-	if($sieve[$i] == true) {
-		$prime = prime_sieve_value($i);
+	//if($sieve[$i] == true) {
+		//$prime = prime_sieve_value($i);
+		$prime = $sieve[$i];
 		for($j = $i - 1; $j >= 0; $j--) {
 
-			if($sieve[$j] == false) continue;
+			//if($sieve[$j] == false) continue;
 
 			$sum = 0;
 			$len = 0;
 
 			for($k = $j; $k >= 0; $k--) {
-				if($sieve[$k] == true) {
+				//if($sieve[$k] == true) {
 
-					$next = prime_sieve_value($k);
+					//$next = prime_sieve_value($k);
+					$next = $sieve[$k];
 					$sum += $next;
 					$len++;
 
@@ -50,10 +52,10 @@ for($i = $sievebound - 1; $i >= $sievebound - 10000; $i--) {
 					} else if($sum > $prime) {
 						break;
 					}
-				}
+				//}
 			}
 		}
-	}
+	//}
 }
 
 print $max . " of length " . $maxlen . "\n";

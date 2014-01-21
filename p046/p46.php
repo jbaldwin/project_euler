@@ -20,37 +20,28 @@ What is the smallest odd composite that cannot be written as the sum of a prime 
 
 require_once "../lib/prime.php";
 
-ini_set('memory_limit', '1024M');
+$limit = 10000;
+$primes = prime_sieve($limit);
+$composites = array_diff(
+	range($primes[1], $primes[count($primes) - 1], 2),
+	$primes);
 
-$limit = 100000;
-$sieve = prime_sieve($limit);
-$sievebound = count($sieve);
+foreach($composites as $c) {
+	$found = false;
+	foreach($primes as $p) {
+		if($p > $c) break;
 
-for($c = 1; $c < $sievebound; $c++) {
-	if($sieve[$c] == false) {
-		$cval = prime_sieve_value($c);
-
-		$found = false;
-		for($p = 1; $p < $c; $p++) {
-			if($sieve[$p] == true) {
-				$pval = prime_sieve_value($p);
-				// calculate the sqrt and take the integer value
-				// if the reverse operation matches $cval goldbach's
-				// conjecture works
-				$s = floor(sqrt((($cval - $pval) / 2)));
-				if($pval + 2 * $s * $s == $cval) {
-					$found = true;
-				}
-			}
-		}
-		// all primes and 2 * squares exhausted.. so this $cval does not
-		// match goldback's conjecture
-		if(!$found) {
+		$s = floor(sqrt((($c - $p) / 2)));
+		if($p + 2 * $s * $s == $c) {
+			$found = true;
 			break;
 		}
 	}
+	if(!$found) {
+		print $c . "\n";
+		die();
+	}
 }
-print prime_sieve_value($c) . "\n";
 
 ?>
 

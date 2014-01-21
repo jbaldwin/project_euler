@@ -9,17 +9,12 @@ What is the largest n-digit pandigital prime that exists.
 
 require_once "../lib/prime.php";
 
-ini_set('memory_limit', '1024M');
-
+// A prime sieve can be used if sufficient
+// memory is available, but 512MB is not enough
 $limit = 10000000;
-$sieve = prime_sieve($limit);
-$sievebound = count($sieve);
 
-$pandigital = 0;
-for($i = 1; $i < $sievebound; $i++) {
-	if($sieve[$i] == true) {
-		$p = 2 * $i + 1;
-
+for($p = 9999999; $p > 3; $p -= 2) {
+	if(is_prime($p)) {
 		$s = strval($p);
 		$len = strlen($s);
 
@@ -32,13 +27,11 @@ for($i = 1; $i < $sievebound; $i++) {
 		}
 
 		if($is_pan) {
-			$pandigital = $p;
-			print $pandigital . "\n";
+			print $p . "\n";
+			exit(0);
 		}
 	}
 }
-
-print "\n" . $pandigital . "\n";
 
 ?>
 

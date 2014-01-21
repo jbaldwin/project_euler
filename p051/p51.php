@@ -18,14 +18,15 @@ same digit, is part of an eight prime value famly.
 require_once "../lib/prime.php";
 
 $limit = 1000000;
-$sieve = prime_sieve($limit);
-$sievebound = count($sieve);
+$primesieve = prime_sieve($limit);
+$primekeys = array();
+foreach($primesieve as $prime) {
+	$primekeys[$prime] = true;
+}
 
-for($i = 0; $i < $sievebound; $i++) {
+for($i = 0; $i < count($primesieve); $i++) {
 
-	if($sieve[$i] == false) continue;
-
-	$sorig = strval(prime_sieve_value($i));
+	$sorig = strval($primesieve[$i]);
 	$len = strlen($sorig);
 	if($len < 4) continue;
 
@@ -43,7 +44,8 @@ for($i = 0; $i < $sievebound; $i++) {
 		for($r = 0; $r < 10; $r++) {
 			if($c1 == 0 && $r == 0) continue;
 			$s[$c1] = $s[$c2] = $s[$c3] = $r;
-			if($sieve[prime_sieve_index(intval($s))] == true) {
+			if(array_key_exists(intval($s), $primekeys)) {
+			//if($sieve[prime_sieve_index(intval($s))] == true) {
 				$count++;
 				$primes[$r] = intval($s);
 			} else {
@@ -52,7 +54,7 @@ for($i = 0; $i < $sievebound; $i++) {
 		}
 
 		if($count == 8) {
-			print $sorig . "\n";
+			print $sorig . "\n\n";
 
 			foreach($primes as $v) {
 				if($v != 0) {

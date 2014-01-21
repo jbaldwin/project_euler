@@ -16,15 +16,13 @@ What 12-digit number do you form by concatenating the three terms in this sequen
 require_once "../lib/prime.php";
 require_once "../lib/permutations.php";
 
-$sieve = prime_sieve(10000);
-$sievebound = count($sieve);
+$primes = prime_sieve(10000);
 $magic = 3330;
 
 $found = array();
 
-for($i = 1; $i < $sievebound; $i++) {
-	if($sieve[$i] == false) continue;
-	$sval = prime_sieve_value($i);
+for($i = 0; $i < count($primes); $i++) {
+	$sval = $primes[$i];
 	if($sval < 1000) continue;
 	if($sval > 4000) break;
 
