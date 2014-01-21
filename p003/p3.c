@@ -14,12 +14,11 @@ int compare(const void* v1, const void* v2) {
 
 int main(int argc, char* argv[]) {
 
-	int num;
 	unsigned long long magic = 600851475143;
-	unsigned long long* factors = prime_factors(magic, &num);
-	qsort(factors, num, sizeof(unsigned long long), compare);
+	prime_factors_t pf = prime_factors(magic);
+	qsort(pf.factors, pf.num, sizeof(unsigned long long), compare);
 
-	printf("%llu\n", factors[num - 1]);
+	printf("%llu\n", pf.factors[pf.num - 1]);
 
 	return 0;
 }

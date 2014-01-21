@@ -19,7 +19,12 @@ bool is_prime(int n) {
     return true;
 }
 
-unsigned int* prime_sieve(int limit, unsigned int* num_primes) {
+typedef struct sieve_t {
+	unsigned int  num;
+	unsigned int* primes;
+} sieve_t;
+
+sieve_t prime_sieve(int limit) {
 	unsigned int sievebound = (limit - 1) / 2;
 	char sieve[sievebound];
 	unsigned int crosslimit = floor(sqrt(sievebound));
@@ -49,47 +54,54 @@ unsigned int* prime_sieve(int limit, unsigned int* num_primes) {
 			p++;
 		}
 	}
-	
-	*num_primes = num;
-	return primes;
+
+	sieve_t result;
+	result.num = num;
+	result.primes = primes;	
+
+	return result;
 }
 
-unsigned long long* prime_factors(unsigned long long n, int* out_num_factors) {
-	int count = 0;
+typedef struct prime_factors_t {
+	unsigned long long  num;
+	unsigned long long* factors;
+} prime_factors_t;
+
+prime_factors_t prime_factors(unsigned long long n) {
+	int num = 0;
 	int size = 8;
 	unsigned long long* factors = malloc(sizeof(unsigned long long) * size);
 
 	unsigned long long d = 2;
 	while(n > 1) {
 		while(n % d == 0) {
-			if(count == size) {
+			if(num == size) {
 				size += 8;
 				factors = realloc(factors, sizeof(unsigned long long) * size);
-				if(factors == NULL) return NULL; // out of memory uh oh!
 			}
 
-			factors[count] = d;
+			factors[num] = d;
 			n /= d;
-			count++;
+			num++;
 		}
 		d += 1;
 		if(d * d > n) {
 			if(n > 1) {
-				if(count == size) {
+				if(num == size) {
 					size += 8;
 					factors = realloc(factors, sizeof(unsigned long long) * size);
-					if(factors == NULL) return NULL;
 				}
-				factors[count] = n;
-				count++;
+				factors[num] = n;
+				num++;
 			}
 			break;
 		}
 	}
 
 	// reduce memory footprint
-	factors = realloc(factors, sizeof(unsigned long long) * count);
-	*out_num_factors = count;
-	return factors;
+	prime_factors_t result;
+	result.factors = realloc(factors, sizeof(unsigned long long) * num);
+	result.num = num;
+	return result;
 }
 

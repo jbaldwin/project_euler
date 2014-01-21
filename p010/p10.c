@@ -7,12 +7,11 @@
 
 int main(int argc, char* argv[]) {
 	
-	unsigned int num_primes;
-	unsigned int* primes = prime_sieve(LIMIT, &num_primes);
+	sieve_t sieve = prime_sieve(LIMIT);
 
 	unsigned long long total = 0;
-	for(int i = 0; i < num_primes; i++) {
-			total += primes[i];
+	for(int i = 0; i < sieve.num; i++) {
+			total += sieve.primes[i];
 	}
 	
 	printf("%llu\n", total);
