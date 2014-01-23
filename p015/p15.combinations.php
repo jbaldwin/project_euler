@@ -40,4 +40,3 @@ $total = factorial($n) / (factorial($r) * factorial($n - $r));
 print $total;
 
 ?>
-

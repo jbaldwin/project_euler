@@ -62,7 +62,6 @@ for($i = 0; $i < strlen($n) - 5; $i++) {
 	$max = max($max, product($n, $i));
 }
 
-print $max . "\n";
+print $max;
 
 ?>
-

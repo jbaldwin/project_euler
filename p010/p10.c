@@ -5,16 +5,19 @@
 
 #define LIMIT 2000000
 
+typedef unsigned long long i64;
+
 int main(int argc, char* argv[]) {
 	
 	sieve_t sieve = prime_sieve(LIMIT);
 
-	unsigned long long total = 0;
+	i64 total = 0;
 	for(int i = 0; i < sieve.num; i++) {
 			total += sieve.primes[i];
 	}
 	
-	printf("%llu\n", total);
+	printf("%llu", total);
 
 	return 0;
 }
+

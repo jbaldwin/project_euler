@@ -42,7 +42,8 @@ int main(int argc, char* argv[]) {
 	i64 index = find(500);
 	i64 triangle = (index * (index + 1)) / 2;
 
-	printf("%llu\n", triangle);
+	printf("%llu", triangle);
 
 	return 0;
 }
+

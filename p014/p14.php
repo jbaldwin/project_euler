@@ -34,7 +34,6 @@ for($i = 1; $i < 1000000; $i++) {
 	}
 }
 
-print $result . "\n";
+print $result;
 
 ?>
-

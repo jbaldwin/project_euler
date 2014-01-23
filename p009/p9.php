@@ -19,11 +19,10 @@ for($a = 1; $a < 998; $a++) {
 			continue;
 
 		if($a * $a + $b * $b == $c * $c) {
-			print $a * $b * $c . "\n";
+			print $a * $b * $c;
 			exit(0);
 		}
 	}
 }
 
 ?>
-

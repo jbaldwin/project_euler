@@ -13,7 +13,6 @@ $magic = 600851475143;
 
 $factors = prime_factors($magic);
 sort($factors, SORT_NUMERIC);
-print $factors[count($factors) - 1] . "\n";
+print $factors[count($factors) - 1];
 
 ?>
-

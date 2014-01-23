@@ -1,13 +1,13 @@
 #include <stdio.h>
 
-typedef unsigned long long ull;
+typedef unsigned long long i64;
 
 int main(int argc, char* argv[]) {
 
-	ull total = 0;
-	ull last = 1;
-	ull curr = 2;
-	ull next = 0;
+	i64 total = 0;
+	i64 last = 1;
+	i64 curr = 2;
+	i64 next = 0;
 	while(next <= 4000000) {
 		if(curr % 2 == 0) {
 			total += curr;
@@ -17,7 +17,8 @@ int main(int argc, char* argv[]) {
 		curr = next;
 	}
 
-	printf("%llu\n", total);
+	printf("%llu", total);
 
 	return 0;
 }
+

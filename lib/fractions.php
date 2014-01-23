@@ -11,4 +11,3 @@ function fraction_reduce(&$numerator, &$denominator) {
 }
 
 ?>
-

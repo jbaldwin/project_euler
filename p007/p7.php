@@ -20,7 +20,6 @@ do {
 	}
 } while($count < $stop);
 
-print $prime . "\n";
+print $prime;
 
 ?>
-

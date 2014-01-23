@@ -8,7 +8,7 @@ int main(int argc, char* argv[]) {
 			if(c <= 0) continue;
 
 			if(a * a + b * b == c * c) {
-				printf("%i\n", a * b * c);
+				printf("%i", a * b * c);
 				goto found;
 			}
 		}

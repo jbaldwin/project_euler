@@ -20,4 +20,3 @@ function _permutate($prefix, $str, &$permutations) {
 }
 
 ?>
-

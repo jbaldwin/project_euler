@@ -13,7 +13,8 @@ int main(int argc, char* argv[]) {
 		if(is_prime(prime)) count++;
 	} while(count < stop);
 
-	printf("%i\n", prime);
+	printf("%i", prime);
 
 	return 0;
 }
+

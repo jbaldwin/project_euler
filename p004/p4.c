@@ -19,15 +19,15 @@ int main(int argc, char* argv[]) {
 			char letters[6] = { 0 };
 			snprintf(letters, 6, "%i", i * j);
 			if(is_palindrome(letters)) {
-				printf("%s is palindrome\n", letters);
 				if(i * j > max) {
 					max = i * j;
-					//printf("%i\n", max);
 				}
 			}
 		}
 	}
-	printf("%i\n", max);
+
+	printf("%i", max);
 
 	return 0;
 }
+

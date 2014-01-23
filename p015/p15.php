@@ -25,4 +25,3 @@ print lattice_paths($argv[1], $argv[1]) . "\n";
 print exec("php -f p15.combinations.php 20");
 
 ?>
-

@@ -22,4 +22,3 @@ $square_of_sum = pow($square_of_sum, 2);
 print $square_of_sum - $sum_of_square . "\n";
 
 ?>
-

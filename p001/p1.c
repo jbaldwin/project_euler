@@ -6,7 +6,9 @@ int main(int argc, char* argv[]) {
 	for(int i = 0; i < 1000; i++) {
 		if(i % 3 == 0 || i % 5 == 0) sum += i;
 	}
-	printf("%i\n", sum);
+
+	printf("%i", sum);
 
 	return 0;
 }
+

@@ -23,6 +23,6 @@ while($next <= 4000000) {
 	$curr = $next;
 }
 
-print $total . "\n";
+print $total;
 
 ?>

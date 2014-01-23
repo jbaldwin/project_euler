@@ -17,7 +17,7 @@ int main(int argc, char* argv[]) {
 			(n[i + 4] - '0');
 		max = (max > p) ? max : p;
 	}
-	printf("%i\n", max);
+	printf("%i", max);
 
 	return 0;
 }

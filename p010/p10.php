@@ -17,7 +17,6 @@ for($i = 3; $i <= $limit; $i += 2) {
 	}
 }
 
-print $sum . "\n";
+print $sum;
 
 ?>
-

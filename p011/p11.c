@@ -85,7 +85,7 @@ int main(int argc, char* argv[]) {
 		}
 	}
 
-	printf("%i\n", max);
+	printf("%i", max);
 
 	return 0;
 }

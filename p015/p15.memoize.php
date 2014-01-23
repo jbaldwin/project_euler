@@ -34,5 +34,3 @@ function lattice_paths($x, $y) {
 print lattice_paths($argv[1], $argv[1]);
 
 ?>
-
-

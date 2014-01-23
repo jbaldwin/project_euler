@@ -21,6 +21,6 @@ for($i = 100; $i <= 999; $i++) {
 	}
 }
 
-print $max . "\n";
+print $max;
 
 ?>

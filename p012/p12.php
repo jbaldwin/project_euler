@@ -18,7 +18,7 @@ We can see that 28 is the first triangle number to have over five divisors.
 
 What is the value of the first triangle number to have over five hundred divisors?
 
-**/ 
+**/
 
 function num_divisors($n) {
 	if($n % 2 == 0) $n /= 2;
@@ -58,7 +58,6 @@ function find($limit) {
 
 $index = find(500);
 $triangle = ($index * ($index + 1)) / 2;
-print $triangle . "\n";
+print $triangle;
 
 ?>
-

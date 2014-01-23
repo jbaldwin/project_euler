@@ -215,7 +215,6 @@ foreach($nums as $n) {
 
 $output = substr(gmp_strval($total), 0, 10);
 
-print $output . "\n";
+print $output;
 
 ?>
-

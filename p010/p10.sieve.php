@@ -12,7 +12,6 @@ for($i = 0; $i < count($primes); $i++) {
 	$sum += $primes[$i];
 }
 
-print $sum . "\n";
+print $sum;
 
 ?>
-

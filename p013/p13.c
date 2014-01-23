@@ -118,7 +118,7 @@ int main(int argc, char* argv[]) {
 	output[10] = '\0';
 	snprintf(output, 11, "%llu", total);
 
-	printf("%s\n", output);
+	printf("%s", output);
 
 	return 0;
 }
