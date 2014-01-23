@@ -22,22 +22,7 @@ function lattice_paths($x, $y) {
 print lattice_paths($argv[1], $argv[1]) . "\n";
 **/
 
-function factorial($n) {
-	$f = 1;
-	for($i = 1; $i <= $n; $i++) $f *= $i;
-	return $f;
-}
-
-// total number of items to choose is 2x each side of the grid.
-$n = $argv[1] * 2;
-// total number of items that can be chosen is equal to one side of the grid,
-// the other items are "automatically chosen"
-$r = $argv[1];
-
-// simple combination of 40 choose 20
-$total = factorial($n) / (factorial($r) * factorial($n - $r));
-
-print $total;
+print exec("php -f p15.combinations.php 20");
 
 ?>
 

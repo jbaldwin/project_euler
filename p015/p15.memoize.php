@@ -31,8 +31,7 @@ function lattice_paths($x, $y) {
 	return $total;
 }
 
-print lattice_paths($argv[1], $argv[1]) . "\n";
-
+print lattice_paths($argv[1], $argv[1]);
 
 ?>
 
