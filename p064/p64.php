@@ -17,8 +17,12 @@
 * The process can be summarised as follows:
 *   a_0 = 4, 1 / (sqrt(23) - 4) = (sqrt(23) + 4) / 7 = 1 + ((sqrt(23) - 3) / 7)
 *   a_1 = 1, 7 / (sqrt(23) - 3) = (7 * sqrt(23) + 3) / 14 = 3 + ((sqrt(23) - 3) / 2)
-*   a_2 = 3, 2 / (sqrt(23) - 3) = 
-*
+*   a_2 = 3, 2 / (sqrt(23) - 3) = (2 * sqrt(23) + 3) / 14 = 1 + ((sqrt(23) - 4) / 7)
+*   a_3 = 1, 7 / (sqrt(23) - 4) = (7 * sqrt(23) + 4) / 7 = 8 + sqrt(23) - 4
+*   a_4 = 8, 1 / (sqrt(23) - 4) = (sqrt(23) + 4) / 7 = 1 + ((sqrt(23) - 3) / 7)
+*   a_5 = 1, 7 / (sqrt(23) - 3) = (7 * sqrt(23) + 3) / 14 = 3 + ((sqrt(23) - 3) / 2)
+*   a_6 = 3, 2 / (sqrt(23) - 3) = (2 * sqrt(23) + 3) / 14 = 1 + ((sqrt(23) - 4) / 7)
+*   a_7 = 1, 7 / (sqrt(23) - 4) = (7 * sqrt(23) + 4) / 7 = 8 + sqrt(23) - 4
 *
 * It can be seen that the sequence is repeating.  For conciseness, we use the notation
 * sqrt(23) = [4;(1,3,1,8)], to indicate that the block (1,3,1,8) repeats indefinitely.
@@ -40,109 +44,67 @@
 * How many continued fractions for N <= 10000 have an odd period?
 **/
 
-/**
-This is how I figured out the algorithm works.
-By analyzing the given examples one can find out that
-a0 is the floor of the sqrt(n).  (this took me a while to recognize)
-As sqrt(23) ~= 4.7, so naturally a0 = 4.
-Now you can repeat by keeping the remainder and taking floor(1 / r_i)
-to get the next number in the sqrt period.  (I initially missed this as
-you can see below I had 1 / (sqrt($n) - $a0) which is still correct
-but makes for a longer algo...)
+function sqrt_period($n) {
+	// 32 and 64 produces 1 off error 1323 instead of 1322...
+	// so there is a percision error below at 32~ for 1 sqrt
+	$scale = 64;
+	$chop = 128;
 
-$n = 23;
-$a0 = floor(sqrt($n));
+	$found = false;
+	while(!$found) {
 
-$r1 = 1 / (sqrt($n) - $a0);
-$a1 = floor($r1);
-$r1 = $r1 - $a1;
+		bcscale($scale + $chop);
 
-$r2 = 1 / $r1;
-$a2 = floor($r2);
-$r2 = $r2 - $a2;
+		$a = array();	// "a" values
+		$r = array();	// remainders
 
-$r3 = 1 / $r2;
-$a3 = floor($r3);
-$r3 = $r3 - $a3;
+		$t_0 = bcsqrt($n);
+		$a_0 = substr($t_0, 0, strpos($t_0, "."));
+		$r_i = bcsub($t_0, $a_0);	// a_0 value is not counted
 
-$r4 = 1 / $r3;
-$a4 = floor($r4);
-$r4 = $r4 - $a4;
+		while(true) {
+			$t_i = bcdiv("1", $r_i);
+			$a_i = substr($t_i, 0, strpos($t_i, "."));
+			$r_i = bcsub($t_i, $a_i);
 
-print "[" . $a0 . ";(" . $a1 . "," . $a2 . "," . $a3 . "," . $a4 .  ")]\n";
-print $r1 . "," . $r2 . "," . $r3 . "," . $r4;
-**/
+			// Chop off the last X digits... they are not always perfect
+			// If the remainder key already exists then the period has
+			// been found so stop
+			$key = substr($r_i, 0, -$chop);
+			if(array_key_exists($key, $r)) {
+				$found = true;
+				break;
+			}
+			
+			// 217 is the longest chain so try again 
+			// with a higher scale and chop
+			if(count($a) >= 250) {
+				$scale *= 2;
+				$chop *= 2;
+				break;
+			}
 
-$stdin = fopen("php://stdin", "r");
-
-function sqrt_period($n, $scale, $chop) {
-	bcscale($scale + $chop);
-
-	$a = array();	// "a" values
-	$r = array();	// remainders
-
-	$t_0 = bcsqrt($n);
-	$a_0 = substr($t_0, 0, strpos($t_0, "."));
-	$r_i = bcsub($t_0, $a_0);	// a_0 value is not counted
-
-//	print "a=" . $a_0 . ", r= " . $r_i . ", t=" . $t_0 . "\n";
-
-	while(true) {
-		$t_i = bcdiv("1", $r_i);
-		$a_i = substr($t_i, 0, strpos($t_i, "."));
-		$r_i = bcsub($t_i, $a_i);
-
-		// chop off the last X digits... they are not always perfect
-		$key = substr($r_i, 0, -$chop);
-		if(array_key_exists($key, $r)) {
-			break;
+			$a[] = $a_i;
+			$r[$key] = true;
 		}
-		if(count($a) >= 1000) return -1;	// hmm..?
-
-		$a[] = $a_i;
-		$r[$key] = true;
-
-//		print "a=" . $a_i . ", r=" . $key . ", t=" . $t_i . "\n";
 	}
 
 	return count($a);
 }
 
-$failed = array();
-$count = 0;
-for($i = 2; $i <= 10000; $i++) {
-
-	$sqrt = bcsqrt(strval($i));
+function is_perfect_square($n) {
+	$sqrt = bcsqrt(strval($n), 16);	// Scale 16 is enough
 	$squared = bcmul($sqrt, $sqrt);
-	if(bccomp(strval($i), $squared) == 0) {
-		continue;	// ignore perfect squares
-	}
+	return (bccomp(strval($n), $squared) == 0) ? true : false;
+}
 
-	$scale = 64;
-	$chop = 128;
-
-retry:
-	$period = sqrt_period($i, $scale, $chop);
-	if($period == -1) {
-
-		print $i . " failed\n";
-		$failed[] = $i;
-
-		print "exhausted 1000 at scale=" . $scale . " and chop=" . $chop . "\n";
-		$scale *= 2;
-		$chop *= 2;
-		goto retry;
-	}
+$count = 0;
+for($n = 2; $n <= 10000; $n++) {
+	if(is_perfect_square($n)) continue;
+	$period = sqrt_period($n);
 
 	if($period % 2 == 1) $count++;
-	print $i . " period=" . $period . "\n";
-//		$line = fgets($stdin);
 }
 
-foreach($failed as $f) {
-	print $f . "\n";
-}
-
-print count($failed) . "\n";
-print $count . "\n";
+print $count;
 ?>
