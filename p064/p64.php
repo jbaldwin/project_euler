@@ -82,14 +82,14 @@ function sqrt_period($n, $scale, $chop) {
 	$r = array();	// remainders
 
 	$t_0 = bcsqrt($n);
-	$a_0 = $t_0[0];
+	$a_0 = substr($t_0, 0, strpos($t_0, "."));
 	$r_i = bcsub($t_0, $a_0);	// a_0 value is not counted
 
-//	print $a_0 . ", " . $r_i . "\n";
+//	print "a=" . $a_0 . ", r= " . $r_i . ", t=" . $t_0 . "\n";
 
 	while(true) {
 		$t_i = bcdiv("1", $r_i);
-		$a_i = $t_i[0];
+		$a_i = substr($t_i, 0, strpos($t_i, "."));
 		$r_i = bcsub($t_i, $a_i);
 
 		// chop off the last X digits... they are not always perfect
@@ -102,27 +102,32 @@ function sqrt_period($n, $scale, $chop) {
 		$a[] = $a_i;
 		$r[$key] = true;
 
-//		print $a_i . ", " . $key . "\n";
+//		print "a=" . $a_i . ", r=" . $key . ", t=" . $t_i . "\n";
 	}
 
 	return count($a);
 }
 
+$failed = array();
 $count = 0;
 for($i = 2; $i <= 10000; $i++) {
 
 	$sqrt = bcsqrt(strval($i));
 	$squared = bcmul($sqrt, $sqrt);
 	if(bccomp(strval($i), $squared) == 0) {
-		continue;	// not irrational
+		continue;	// ignore perfect squares
 	}
 
-	$scale = 32;
-	$chop = 8;
+	$scale = 64;
+	$chop = 128;
 
 retry:
 	$period = sqrt_period($i, $scale, $chop);
 	if($period == -1) {
+
+		print $i . " failed\n";
+		$failed[] = $i;
+
 		print "exhausted 1000 at scale=" . $scale . " and chop=" . $chop . "\n";
 		$scale *= 2;
 		$chop *= 2;
@@ -131,9 +136,13 @@ retry:
 
 	if($period % 2 == 1) $count++;
 	print $i . " period=" . $period . "\n";
-//	$line = fgets($stdin);
+//		$line = fgets($stdin);
 }
 
-print $count;
+foreach($failed as $f) {
+	print $f . "\n";
+}
 
+print count($failed) . "\n";
+print $count . "\n";
 ?>
