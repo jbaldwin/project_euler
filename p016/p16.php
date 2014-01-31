@@ -11,13 +11,11 @@ $power = 1000;
 $result = gmp_pow($two, $power);
 
 $strval = gmp_strval($result);
-print $strval . "\n";
 $sum = gmp_init("0");
 for($i = 0; $i < strlen($strval); $i++) {
 	$sum = gmp_add($sum, $strval[$i]);
 }
 
-print gmp_strval($sum) . "\n";
+print gmp_strval($sum);
 
 ?>
-
