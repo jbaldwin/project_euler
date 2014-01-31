@@ -53,24 +53,21 @@ $triangle = array(
 04, 62, 98, 27, 23, 09, 70, 98, 73, 93, 38, 53, 60, 04, 23,
 );
 
-function greedy($triangle) {
+function greedy($triangle, $rows) {
 	$i = 0;
 	$n = 1;
 	$row = 0;
 	$max = $triangle[0];
-	print $triangle[0] . "\n";
-	while($row < 15) {
+	while($row < $rows) {
 		$left = $i + $n;
 		$right = $i + $n + 1;
 
 		if($triangle[$left] >= $triangle[$right]) {
 			$max += $triangle[$left];
 			$i = $left;
-			print $triangle[$left] . "\n";
 		} else {
 			$max += $triangle[$right];
 			$i = $right;
-			print $triangle[$right] . "\n";
 		}
 		$n++;
 		$row++;
@@ -86,16 +83,15 @@ function right($n, $i) {
 	return $i + $n + 1;
 }
 
-function greedy_two_step($triangle) {
+function greedy_two_step($triangle, $rows) {
 	$i = 0;
 	$n = 1;
 	$row = 0;
 	$max = $triangle[0];
 
-	print "length=" . count($triangle) . "\n";
-	print $triangle[0] . "\n";
+	$len = count($triangle); 
 
-	while($row < 14) {
+	while($row < $rows - 1) {
 
 		$left = left($n, $i);
 		$right = right($n, $i);
@@ -106,26 +102,22 @@ function greedy_two_step($triangle) {
 		$rightleft = left($n+1, $right);
 		$rightright = right($n+1, $right);
 
-		print "left=" . $left . ", right=" . $right . 
-			", leftleft=" . $leftleft . ", leftright=" . $leftright . 
-			", rightleft=" . $rightleft . ", rightright=" . $rightright . "\n";
-
 		$n_ll = 0;
 		$n_lr = 0;
 		$n_rl = 0;
 		$n_rr = 0;
 
-		if($left < 120) $n_ll += $triangle[$left];
-		if($leftleft < 120) $n_ll += $triangle[$leftleft];
+		if($left < $len) $n_ll += $triangle[$left];
+		if($leftleft < $len) $n_ll += $triangle[$leftleft];
 
-		if($left < 120) $n_lr += $triangle[$left];
-		if($leftright < 120) $n_lr += $triangle[$leftright];
+		if($left < $len) $n_lr += $triangle[$left];
+		if($leftright < $len) $n_lr += $triangle[$leftright];
 
-		if($right < 120) $n_rl += $triangle[$right];
-		if($rightleft < 120) $n_rl += $triangle[$rightleft];
+		if($right < $len) $n_rl += $triangle[$right];
+		if($rightleft < $len) $n_rl += $triangle[$rightleft];
 
-		if($right < 120) $n_rr += $triangle[$right];
-		if($rightright < 120) $n_rr += $triangle[$rightright];
+		if($right < $len) $n_rr += $triangle[$right];
+		if($rightright < $len) $n_rr += $triangle[$rightright];
 
 		if($n_ll >= $n_lr && $n_ll >= $n_rl && $n_ll >= $n_rr) {
 			$i = $left;
@@ -138,7 +130,6 @@ function greedy_two_step($triangle) {
 			$max += $triangle[$right];
 		}
 
-
 		$n++;
 		$row++;
 	}
@@ -146,9 +137,8 @@ function greedy_two_step($triangle) {
 	return $max;
 }
 
-$greedy_max = greedy_two_step($triangle);
+$greedy_max = greedy_two_step($triangle, 15);
 
-print $greedy_max . "\n";
+print $greedy_max;
 
 ?>
-
