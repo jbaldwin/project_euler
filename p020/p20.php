@@ -17,7 +17,6 @@ for($i = 0; $i < strlen($str_val); $i++) {
 	$total += $str_val[$i];
 }
 
-print $total . "\n";
+print $total;
 
 ?>
-
