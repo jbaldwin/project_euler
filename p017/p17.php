@@ -93,9 +93,7 @@ for($i = 1; $i <= 1000; $i++) {
 
 }
 
-print $allwords . "\n";
 $allwords = str_replace(array("\n", " "), "", $allwords); 
-print strlen($allwords) . " total letters.\n";
+print strlen($allwords);
 
 ?>
-
