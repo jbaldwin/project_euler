@@ -54,7 +54,6 @@ asort($amicable, SORT_NUMERIC);
 $amicable = &array_unique($amicable, SORT_NUMERIC);
 $sum = array_reduce($amicable, "reduce_sum");
 
-print $sum . "\n";
+print $sum;
 
 ?>
-
