@@ -17,7 +17,7 @@ expressed as the sum of two abundant numbers is less than this limit.
 Find the sum of all the positive integers which cannot be written as the sum of two abundant numbers.
 **/
 
-ini_set('memory_limit', '1024M');
+//ini_set('memory_limit', '1024M');
 
 function proper_divisors($n) {
 	$r = floor(sqrt($n));
@@ -92,7 +92,6 @@ for($i = 1; $i <= $limit; $i++) {
 	// checked and none add up to $i so it should be added to the $sum
 found:
 	$sum += $i;
-	//print $i . " " . $sum . "\n";
 not_found:
 }
 
@@ -108,6 +107,6 @@ function binary_in_array($elem, $array) {
 	return false;
 }
 
-print $sum . "\n";
+print $sum;
 
 ?>

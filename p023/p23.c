@@ -72,5 +72,6 @@ int main(int argc, char* argv[]) {
 		not_found: ;
 	}
 
-	printf("%i\n", sum);
+	printf("%i", sum);
 }
+
