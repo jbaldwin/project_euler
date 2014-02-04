@@ -68,9 +68,6 @@ for($i = 0; $i < count($p); $i++) {
 		}
 		$t = lexicographic_index($p);
 
-		print "max=" . $max . " ";
-		print_perm($p);
-		print " current=" . $t . "\n";
 		if($t >= $limit) continue;
 		if($t > $max) {
 			$max = $t;
@@ -80,15 +77,12 @@ for($i = 0; $i < count($p); $i++) {
 
 	$p[$i] = $nums[$max_index];
 	array_splice($nums, $max_index, 1);
-	print "picked: " . $p[$i] . "\n\n";
 }
 
 print_perm($p);
-print " " . lexicographic_index($p) . "\n";
 
 // answer determined by manually checking hightest to lowest numbers, the algorithm
 // above does the same but automated
 //print lexicographic_index(array(2,7,8,3,9,1,5,4,6,0)) . "\n";
 
 ?>
-
