@@ -63,9 +63,6 @@ foreach($names as $name) {
 	$sorted_index++;
 }
 
-print $total . "\n";
-
-
+print $total;
 
 ?>
-
