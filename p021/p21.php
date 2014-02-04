@@ -23,8 +23,7 @@ function proper_divisors($n) {
 		}
 	}
 
-//	asort($pd, SORT_NUMERIC);
-	return array_unique($pd, SORT_NUMERIC);
+	return $pd;
 }
 
 function reduce_sum($v, $w) {
@@ -34,7 +33,6 @@ function reduce_sum($v, $w) {
 
 function d($n) {
 	$pd = proper_divisors($n);
-//	var_dump($pd);
 	return array_reduce($pd, "reduce_sum");
 }
 
@@ -50,7 +48,7 @@ for($a = 1; $a < 10000; $a++) {
 	}
 }
 
-asort($amicable, SORT_NUMERIC);
+// each pair shows up twice, so reduce to unique numbers
 $amicable = &array_unique($amicable, SORT_NUMERIC);
 $sum = array_reduce($amicable, "reduce_sum");
 
