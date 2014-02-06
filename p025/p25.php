@@ -19,6 +19,10 @@ F_9  =  34
 F_10 =  55
 F_11 =  89
 F_12 = 144
+
+The 12th term, F_12, is the first term to contain three digits.
+
+What is the first term in the Fibonacci sequence to contain 1000 digits?
 **/
 
 $length = 1000;
@@ -39,8 +43,6 @@ while(!$found) {
 	$term++;
 }
 
-print gmp_strval($n) . "\n";
-print $term . "\n";
+print $term;
 
 ?>
-
