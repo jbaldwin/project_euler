@@ -230,7 +230,7 @@ while(count($numbers) > 1) {
 	print "precision=" . $precision . "\n";
 	print count($numbers) . " remanaining numbers to check\n";
 	print "max number=" . $max_index . " max_len=" . $max . "\n";
-	$line = fgets($stdin);
+//	$line = fgets($stdin);
 }
 
 ?>
