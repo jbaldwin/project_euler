@@ -2,22 +2,7 @@
 #include <stdbool.h>
 #include <math.h>
 
-bool is_prime(int n) {
-	if(n <= 1) return false;
-	if(n < 4) return true;
-	if(n % 2 == 0) return false;
-	if(n < 9) return true;
-	if(n % 3 == 0) return false;
-
-	int r = floor(sqrt(n));
-	int f = 5;
-	while(f <= r) {
-		if(n % f == 0) return false;
-		if(n % (f + 2) == 0) return false;
-		f += 6;
-	}
-	return true;
-}
+#include "../lib/prime.h"
 
 int main(int argc, char* argv[]) {
 
@@ -30,13 +15,11 @@ int main(int argc, char* argv[]) {
 			int n = 0;
 			while(true) {
 				int c = (n * n) + (a * n) + b;
-			//	printf("c=%i", c);
 				if(!is_prime(c)) {
 					 break;
 				}
 				n++;
 			}
-		//	printf(" a=%i b=%i\n", a, b);
 
 			if(n > max_n) {
 				max_n = n;
@@ -46,7 +29,8 @@ int main(int argc, char* argv[]) {
 		}
 	}
 
-	printf("n=%i product=%i a=%i b=%i\n", max_n, max_a * max_b, max_a, max_b);
+	//printf("n=%i product=%i a=%i b=%i\n", max_n, max_a * max_b, max_a, max_b);
+	printf("%i", max_a * max_b);
 
 	return 0;
 }

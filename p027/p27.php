@@ -54,7 +54,7 @@ for($a = -999; $a < 1000; $a++) {
 	}
 }
 
-print "n=" . $max_n . " product=" . $product . " a=" . $max_a . " b=" . $max_b . "\n";
+//print "n=" . $max_n . " product=" . $product . " a=" . $max_a . " b=" . $max_b . "\n";
+print $max_a * $max_b;
 
 ?>
-
