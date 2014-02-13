@@ -8,17 +8,21 @@
 
 int main(int argc, char* argv[]) {
 
-	int n, i, len, maxlen, maxn;
-	maxlen = 0;
-	for(n = 2; n <= 1000; n++) {
+	int maxlen = 0;
+	int maxn = -1;
+
+	for(int n = 2; n <= 1000; n++) {
+		// only need to check primes
 		if(!is_prime(n)) continue;
 
-
 		int rest = 1;
-		int r0;
-		for(i = 0; i < n; i++) rest = (rest * 10) % n;
-		r0 = rest;
-		len = 0;
+		for(int i = 0; i < n; i++) {
+			rest = (rest * 10) % n;
+		}
+
+		int r0 = rest;
+		int len = 0;
+		
 		do {
 			rest = (rest * 10) % n;
 			len++;
@@ -30,7 +34,7 @@ int main(int argc, char* argv[]) {
 		}
 	}
 
-	printf("%d: %d", maxn, maxlen);
+	printf("%d", maxn);
 
 	return 0;
 }
