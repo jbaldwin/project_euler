@@ -36,7 +36,6 @@ function combos($i, $start) {
 }
 
 $combinations = 1 + combos(0, 0);
-print $combinations . "\n";
+print $combinations;
 
 ?>
-

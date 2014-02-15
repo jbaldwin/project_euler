@@ -19,6 +19,7 @@ int combos(int i, int start) {
 int main(int argc, char* argv[]) {
 
 	int combinations = 1 + combos(0, 0);
-	printf("%i\n", combinations);
+	printf("%i", combinations);
 	return 0;
 }
+
