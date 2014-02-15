@@ -32,13 +32,10 @@ for($i = $start; $i <= $end; $i++) {
 	}
 }
 
-print count($results) . "\n";
 $sum = 0;
 foreach($results as $r) {
-	print $r . "\n";
 	$sum += $r;
 }
-print "sum=" . $sum . "\n";
+print $sum;
 
 ?>
-
