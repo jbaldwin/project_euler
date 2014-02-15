@@ -41,7 +41,6 @@ for($i = 3; $i <= $limit; $i += 2) {
 	if($count % 4 == 0) $skip++;
 }
 
-print $total . "\n";
+print $total;
 
 ?>
-
