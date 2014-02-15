@@ -26,12 +26,13 @@ for($a = $lower; $a <= $upper; $a++) {
 	$gmp_a = gmp_init($a);
 	for($b = $lower; $b <= $upper; $b++) {
 		$gmp_c = gmp_strval(gmp_pow($gmp_a, $b));
-		array_push($results, $gmp_c);
+		//array_push($results, $gmp_c);
+		$results[$gmp_c] = 1;
 	}
 }
 
-$results = array_unique($results, SORT_REGULAR);
-print count($results) . "\n";
+//$results = array_unique($results, SORT_REGULAR);
+print count($results);
 
 ?>
 
