@@ -15,7 +15,6 @@ HINT: Some products can be obtained in more than one way so be sure to only incl
 
 $products = array();
 
-
 for($a = 1; $a <= 50; $a++) {
 	// can't contain a zero
 	if(strpos(strval($a), "0")) continue;
@@ -42,19 +41,15 @@ for($a = 1; $a <= 50; $a++) {
 		}
 
 		$products[$c] = $c;
-		print $c . "\n";
-
 		invalid:
 	}
 	too_large:
 }
 
-print "products count=" . count($products) . "\n";
 $sum = 0;
 foreach($products as $p) {
 	$sum += $p;
 }
-print "sum=" . $sum . "\n";
+print $sum;
 
 ?>
-
