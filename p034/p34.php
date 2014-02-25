@@ -16,25 +16,20 @@ function factorial($n) {
 	return $sum;
 }
 
-$curious = array();
-
+$sum = 0;
 for($i = 3; $i < 99999; $i++) {
 	$fact_sum = 0;
-	$str = strval($i);
-	for($j = 0; $j < strlen($str); $j++) {
-		$fact_sum += factorial($str[$j]);
+	$j = $i;
+	while($j > 0) {
+		$fact_sum += factorial($j % 10);
+		$j = intval($j / 10);
 	}
 	if($i == $fact_sum) {
-		$curious[$i] = $i;
-		print $i . "\n";
+		$sum += $i;
 	}
 }
 
-$sum = 0;
-foreach($curious as $c) {
-	$sum += $c;
-}
-print $sum . "\n";
+print $sum;
 
 ?>
 
