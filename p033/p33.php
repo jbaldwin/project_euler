@@ -31,7 +31,6 @@ for($n = 10; $n <= 99; $n++) {
 			$n1 = $n_str[0];
 			$d1 = $d_str[1];
 			if(intval($n1) / intval($d1) == $n / $d) {
-				print $n . "/" . $d . " = " . $n / $d .  "\n";
 				array_push($fractions, array($n, $d));
 			}
 		}
@@ -50,18 +49,8 @@ foreach($fractions as $f) {
 	$denominator *= $d;
 }
 
-// reduce the fraction
 fraction_reduce($numerator, $denominator);
-/**for($i = $numerator; $i >= 1; $i--) {
-	if($numerator % $i == 0 &&
-	   $denominator % $i == 0) {
-		$numerator /= $i;
-		$denominator /= $i;
-		break;
-	}
-}**/
 
-print $numerator . "/" . $denominator . " = " . $numerator / $denominator . "\n";
+print $denominator;
 
 ?>
-
