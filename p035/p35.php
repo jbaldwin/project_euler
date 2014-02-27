@@ -47,7 +47,6 @@ for($i = 3; $i < 1000000; $i += 2) {
 	}	
 }
 
-print count($circular_primes) . "\n";
+print count($circular_primes);
 
 ?>
-
