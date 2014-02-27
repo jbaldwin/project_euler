@@ -21,11 +21,9 @@ for($i = 1; $i < 1000000; $i++) {
 	if(is_palindrome($dec) &&
 	   is_palindrome($bin)) {
 		$sum += $i;
-		print $dec . " " . $bin . "\n";
 	}
 }
 
-print $sum . "\n";
+print $sum;
 
 ?>
-
