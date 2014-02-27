@@ -1,7 +1,7 @@
 <?php
 
 /**
-The number 3793 has an interesting property.  Beig prime itself, it is possible to continuously
+The number 3793 has an interesting property.  Being prime itself, it is possible to continuously
 remove digits from left to right, and remain prime at each state: 3797, 797, 97, 7.  Similarly 
 we can work from right to left: 3797, 379, 37, and 3.
 
@@ -55,7 +55,6 @@ while(count($t_primes) < 10) {
 	if(is_prime($i)) {
 		if(is_trunc_prime(strval($i))) {
 			array_push($t_primes, $i);
-			print $i . "\n";
 		}
 	}
 	$i += 2;
@@ -105,7 +104,7 @@ foreach($t_primes as $t) {
 	$sum += $t;
 }
 
-print "\n" . $sum . "\n";
+print $sum;
 
 ?>
 
