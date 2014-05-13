@@ -17,11 +17,9 @@ What is the largest 1 to 9 pandigital 9-digit number that can be formed as the o
 an integer with (1,2,...,n) where n > 1?
 **/
 
-$max_i = 0;
-$max_n = 0;
 $max_pan = "";
 
-for($i = 1; $i < 9999; $i++) {
+for($i = 1; $i < 9876; $i++) {
 	for($n = 1; $n <= 9; $n++) {
 		$s = "";
 		for($j = 1; $j <= $n; $j++) {
@@ -42,15 +40,10 @@ for($i = 1; $i < 9999; $i++) {
 
 		if($is_pan == true && $s > $max_pan) {
 			$max_pan = $s;
-			$max_i = $i;
-			$max_n = $n;
-			print $max_pan . "\n";
 		}
 	}
 }
 
-print "\n" . $max_pan . " i=" . $max_i . " n=" . $max_n . "\n";
-
+print $max_pan
 
 ?>
-
