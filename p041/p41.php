@@ -27,11 +27,10 @@ for($p = 9999999; $p > 3; $p -= 2) {
 		}
 
 		if($is_pan) {
-			print $p . "\n";
+			print $p;
 			exit(0);
 		}
 	}
 }
 
 ?>
-
