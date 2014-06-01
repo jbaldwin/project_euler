@@ -34,7 +34,6 @@ for($p = 3; $p <= 1000; $p++) {
 	}
 }
 
-print "\n" . $max_p . " " . $max_c . "\n" 
+print $max_p;
 
 ?>
-

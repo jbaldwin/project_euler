@@ -24,7 +24,7 @@ int main(int argc, char* argv[]) {
 		}
 	}
 
-	printf("%i %i\n", max_p, max_c);
+	printf("%i", max_p);
 
 	return 0;
 }
