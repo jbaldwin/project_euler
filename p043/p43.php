@@ -19,43 +19,35 @@ Let d_1 be the 1st digit, d_2 be the 2nd digit, and so on.  In this way, we not 
 Find the sum of all 0 to 9 pandigital numbers with this property.
 **/
 
-ini_set('memory_limit', '1024M');
-
-$permutations = array();
-
-function permute($prefix, $str) {
-	global $permutations;
+function permute($prefix, $str, &$pSum) {
 	$len = strlen($str);
 	if($len == 0) {
 		if($prefix[0] != '0') {
-			array_push($permutations, $prefix);
+            static $divs = array(2,3,5,7,11,13,17);
+            $is_divisible = true;
+	        for($i = 1; $i <= 7; $i++) {
+		        $d = $p[$i] . $p[$i + 1] . $p[$i + 2];
+		        if($d % $divs[$i - 1] != 0) {
+                    $is_divisible = false;
+                    break;
+		        }
+	        }
+
+            if($is_divisible) {
+                $pSum += $p;
+            }
 		}
 	} else {
 		for($i = 0; $i < $len; $i++) {
-			permute($prefix . $str[$i], substr($str, 0, $i) . substr($str, $i + 1, $len));
+			permute($prefix . $str[$i], substr($str, 0, $i) . substr($str, $i + 1, $len), $pSum);
 		}
 	}
 }
 
-$start = "0123456789";
-$divs = array(2,3,5,7,11,13,17);
-permute("", $start);
 $sum = 0;
-foreach($permutations as $p) {
-	for($i = 1; $i <= 7; $i++) {
-		$d = $p[$i] . $p[$i + 1] . $p[$i + 2];
-		if($d % $divs[$i - 1] != 0) {
-			goto not_divisible;
-		}
-	}
+$start = "0123456789";
+permute("", $start, $sum);
 
-	print $p . "\n";
-	$sum += $p;
-
-	not_divisible:
-}
-
-print "\n" . $sum . "\n";
+print $sum;
 
 ?>
-
