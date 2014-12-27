@@ -37,8 +37,8 @@ for($j = 1; $j <= $i; $j++) {
 	$diff = abs($jp - $ip);
 	if(!isset($pentsr[$diff])) continue;
 
-	print $i . " " . $j . ", " . $jp . " -  " . $ip . " = " . $diff . "\n";
-	die();
+    print $diff;
+    exit(0);
 }
 }
 
