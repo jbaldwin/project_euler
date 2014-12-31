@@ -14,8 +14,6 @@ Using words.txt, a 16K text file containing nearly two-thousand common English w
 are triangle words?
 **/
 
-ini_set('memory_limit', '1024M');
-
 $l2i = array();
 for($i = "A", $j = 1; $i <= "Z"; $i++, $j++) {
 	$l2i[$i] = $j;
@@ -25,8 +23,9 @@ $raw = file_get_contents("words.txt");
 $raw = str_replace('"', '', $raw);
 $words = explode(",", $raw);
 
+$limit = 19; // no triangles are composed of higher than triangle(19) in words.txt
 $triangles = array();
-for($i = 1; $i < 100000; $i++) {
+for($i = 1; $i < $limit; $i++) {
 	$t = (1/2) * $i * ($i + 1);
 	$triangles[$t] = $t;
 }
@@ -47,7 +46,6 @@ foreach($words as $word) {
 	}
 }
 
-print $triangle_words . "\n";
+print $triangle_words;
 
 ?>
-
