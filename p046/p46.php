@@ -3,7 +3,7 @@
 /**
 Goldbach's other conjecture
 
-It was proposed by CHristian Goldbach that every odd composite number can be written as the sum
+It was proposed by Cristian Goldbach that every odd composite number can be written as the sum
 of a prime and twice a square.
 
 9  =  7 + 2x1^2
@@ -24,14 +24,15 @@ $limit = 10000;
 $primes = prime_sieve($limit);
 $composites = array_diff(
 	range($primes[1], $primes[count($primes) - 1], 2),
-	$primes);
+    $primes
+);
 
 foreach($composites as $c) {
 	$found = false;
 	foreach($primes as $p) {
 		if($p > $c) break;
 
-		$s = floor(sqrt((($c - $p) / 2)));
+		$s = floor(sqrt(($c - $p) / 2));
 		if($p + 2 * $s * $s == $c) {
 			$found = true;
 			break;
@@ -44,4 +45,3 @@ foreach($composites as $c) {
 }
 
 ?>
-

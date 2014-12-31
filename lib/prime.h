@@ -1,6 +1,6 @@
 #include <stdbool.h>
 #include <math.h>
-#include <malloc.h>
+#include <stdlib.h>
 
 bool is_prime(int n) {
     if(n <= 1) return false;
@@ -57,7 +57,7 @@ sieve_t prime_sieve(int limit) {
 
 	sieve_t result;
 	result.num = num;
-	result.primes = primes;	
+	result.primes = primes;
 
 	return result;
 }
