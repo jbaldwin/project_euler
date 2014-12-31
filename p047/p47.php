@@ -29,11 +29,10 @@ again:
 for($i = $expected_primes - 1; $i >= 0; $i--) {
 	if(prime_factors_count($n + $i) != $expected_primes) {
 		$n += $i + 1;
-		goto again; 
+		goto again;
 	}
 }
 
-print $n . "\n";
+print $n;
 
 ?>
-
