@@ -25,7 +25,6 @@ $maxlen = 0;
 $max = -1;
 
 for($i = $sievebound - 1; $i >= $sievebound - 10000; $i--) {
-    print abs($i - ($sievebound - 10000)) . "\n";
 	$prime = $sieve[$i];
 	for($j = $i - 1; $j >= 0; $j--) {
     	$sum = 0;
