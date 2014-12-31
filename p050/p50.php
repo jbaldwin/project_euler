@@ -12,7 +12,7 @@ This i sthe longest sum of consecutive primes that adds to a prime below one-hun
 The longest sum of conescutive primes below one-thousand that adds to a prime, contains 21 terms, and
 is equal to 953.
 
-Which prime, belwo one-million, can be written as the sum of the most consecutive primes?
+Which prime, below one-million, can be written as the sum of the most consecutive primes?
 **/
 
 require_once "../lib/prime.php";
@@ -25,40 +25,27 @@ $maxlen = 0;
 $max = -1;
 
 for($i = $sievebound - 1; $i >= $sievebound - 10000; $i--) {
-	//if($sieve[$i] == true) {
-		//$prime = prime_sieve_value($i);
-		$prime = $sieve[$i];
-		for($j = $i - 1; $j >= 0; $j--) {
-
-			//if($sieve[$j] == false) continue;
-
-			$sum = 0;
-			$len = 0;
-
-			for($k = $j; $k >= 0; $k--) {
-				//if($sieve[$k] == true) {
-
-					//$next = prime_sieve_value($k);
-					$next = $sieve[$k];
-					$sum += $next;
-					$len++;
-
-					if($sum == $prime) {
-						print $prime . " " . $len . "\n";
-						if($len > $maxlen) {
-							$maxlen = $len;
-							$max = $prime;
-						}
-					} else if($sum > $prime) {
-						break;
-					}
-				//}
+    print abs($i - ($sievebound - 10000)) . "\n";
+	$prime = $sieve[$i];
+	for($j = $i - 1; $j >= 0; $j--) {
+    	$sum = 0;
+		$len = 0;
+		for($k = $j; $k >= 0; $k--) {
+			$next = $sieve[$k];
+			$sum += $next;
+			$len++;
+			if($sum == $prime) {
+				if($len > $maxlen) {
+					$maxlen = $len;
+					$max = $prime;
+				}
+			} else if($sum > $prime) {
+				break;
 			}
 		}
-	//}
+	}
 }
 
-print $max . " of length " . $maxlen . "\n";
+print $max;
 
 ?>
-
