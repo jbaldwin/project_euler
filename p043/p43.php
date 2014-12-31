@@ -26,7 +26,7 @@ function permute($prefix, $str, &$pSum) {
             static $divs = array(2,3,5,7,11,13,17);
             $is_divisible = true;
 	        for($i = 1; $i <= 7; $i++) {
-		        $d = $p[$i] . $p[$i + 1] . $p[$i + 2];
+		        $d = $prefix[$i] . $prefix[$i + 1] . $prefix[$i + 2];
 		        if($d % $divs[$i - 1] != 0) {
                     $is_divisible = false;
                     break;
@@ -34,7 +34,7 @@ function permute($prefix, $str, &$pSum) {
 	        }
 
             if($is_divisible) {
-                $pSum += $p;
+                $pSum += $prefix;
             }
 		}
 	} else {
