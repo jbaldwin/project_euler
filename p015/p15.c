@@ -15,7 +15,7 @@ int main(int argc, char* arv[]) {
 	uint128 k = 20;
 
 	uint128 total = factorial(n, k + 1) / factorial(k, 2);
-	print_uint128(total);
+	uint128_print(total);
 
 	return 0;
 }
