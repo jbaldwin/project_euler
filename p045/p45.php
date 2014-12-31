@@ -55,7 +55,6 @@ while(!$found) {
 	}
 }
 
-print "T_" . $t . " = P_" . $p . " = H_" . $h . " = " .  $tval . "\n";
+print $tval;
 
 ?>
-
