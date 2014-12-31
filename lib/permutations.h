@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <string.h>
 #include <stdbool.h>
 
 static void str_concat(char* dst, char* first, char second) {

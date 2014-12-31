@@ -19,7 +19,9 @@ require_once "../lib/permutations.php";
 $primes = prime_sieve(10000);
 $magic = 3330;
 
-$found = array();
+$problem_defined = 1487;
+
+$answer = -1;
 
 for($i = 0; $i < count($primes); $i++) {
 	$sval = $primes[$i];
@@ -42,18 +44,18 @@ for($i = 0; $i < count($primes); $i++) {
 	for($j = 0; $j < count($permutations); $j++) {
 		$check1 = $permutations[$j] + $magic;
 		$check2 = $check1 + $magic;
-		if(in_array($check1, $permutations) &&
-		   in_array($check2, $permutations)) {
-			$found[$permutations[$j]] = 1;
+		if( in_array($check1, $permutations) &&
+            in_array($check2, $permutations) &&
+            $permutations[$j] != $problem_defined
+        ) {
+            $answer = $permutations[$j];
+            // break both for loops
+            $i = count($primes);
 			break;
 		}
 	}
 }
 
-foreach($found as $f => $v) {
-	print $f . ", " . ($f + $magic) . ", " . ($f + 2 * $magic) . "\n";
-}
-
+print $answer .  ($answer + $magic) . ($answer + 2 * $magic);
 
 ?>
-
