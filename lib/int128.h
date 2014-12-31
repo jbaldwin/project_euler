@@ -7,13 +7,13 @@
  * @param unsigned __int128 n Integer to convert to char*
  * @return String representation of n.
  **/
-char* uint128_to_str(unsigned __int128 n) {
+char* uint128_str(unsigned __int128 n) {
     if(n == 0) return "0";
 
     char* str = (char*)malloc(40 * sizeof(char));
-    char* s = str + sizeof(str) - 1;
+    char* s = str + (40 * sizeof(char)) - 1;
     while(n != 0) {
-        if(s == str) return NULL;
+        //if(s == str) return NULL;
 
         *--s = "0123456789"[n % 10];
         n /= 10;

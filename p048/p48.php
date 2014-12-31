@@ -13,7 +13,6 @@ for($i = 1; $i <= 1000; $i++) {
 	$sum = gmp_add($sum, gmp_pow(strval($i), $i));
 }
 
-print substr(gmp_strval($sum), -10) . "\n";
+print substr(gmp_strval($sum), -10);
 
 ?>
-
