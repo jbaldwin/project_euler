@@ -43,7 +43,6 @@ for($n = 23; $n <= 100; $n++) {
 	}
 }
 
-print $count . "\n";
+print $count;
 
 ?>
-
