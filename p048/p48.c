@@ -1,22 +1,25 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
-
-#include "../lib/int128.h"
-
-typedef unsigned __int128 u128;
+#include <gmp.h>
 
 int main(int argc, char* argv[]) {
 
-    u128 sum = 0;
+    mpz_t sum;
+    mpz_init(sum);
 
     for(int i = 1; i <= 1000; i++) {
-        sum += uint128_power(i, i);
+        mpz_t p;
+        mpz_init(p);
+        mpz_ui_pow_ui(p, i, i);
+        mpz_add(sum, sum, p);
     }
 
-    char* value = uint128_str(sum);
+    char* value = mpz_get_str(NULL, 10, sum);
     int len = strlen(value);
     char* start = value + (len - 10); // only print last 10 chars
-    printf("\n%s", start);
+    printf("%s", start);
+
     free(value);
 
     return 0;
