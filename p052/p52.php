@@ -24,7 +24,6 @@ function same($s1, $s2) {
 	return true;
 }
 
-
 for($i = 102; ; $i++) {
 	$s1 = strval($i);
 	if($s1[0] != '1') continue;
@@ -38,13 +37,9 @@ for($i = 102; ; $i++) {
 	}
 
 	if($found) {
-		print $i . "\n\n";
-		for($x = 2; $x <= 6; $x++) {
-			print ($i * $x) . "\n";
-		}
-		die();
+		print $i;
+        break;
 	}
 }
 
 ?>
-
