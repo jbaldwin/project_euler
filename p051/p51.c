@@ -15,6 +15,8 @@ int main(int argc, char* argv[]) {
         int len = strlen(sorig);
         if(len < 4) continue;
 
+        int primes[10] = { 0 };
+
         for(int c1 = 0; c1 < len; c1++) {
         for(int c2 = 1; c2 < len; c2++) {
         for(int c3 = 2; c3 < len; c3++) {
@@ -32,12 +34,18 @@ int main(int argc, char* argv[]) {
                 sscanf(s, "%i", &prime_candidate);
                 if(is_prime(prime_candidate)) {
                     count++;
+                    primes[r - '0'] = prime_candidate;
                 }
             }
 
             if(count == 8) {
-                printf("%s", sorig);
-                goto done; // too many loops, just quit
+                for(int j = 0; j < 10; j++) {
+                    if(primes[j] == 0) continue;
+                    // print the first and lowest prime!
+                    printf("%i", primes[j]);
+                    goto done; // too many loops, just quit
+                }
+
 
             }
         }

@@ -30,6 +30,8 @@ for($i = 0; $i < count($primesieve); $i++) {
 	$len = strlen($sorig);
 	if($len < 4) continue;
 
+    $primes = array();
+
 	for($c1 = 0; $c1 < $len; $c1++) {
 	for($c2 = 1; $c2 < $len; $c2++) {
 	for($c3 = 2; $c3 < $len; $c3++) {
@@ -44,13 +46,17 @@ for($i = 0; $i < count($primesieve); $i++) {
 			$s[$c1] = $s[$c2] = $s[$c3] = $r;
 			if(array_key_exists(intval($s), $primekeys)) {
 				$count++;
-                // note: could save the prime numbers here if you wanted them!
+                $primes[$r] = $s;
 			}
 		}
 
 		if($count == 8) {
-			print $sorig;
-            exit(0);
+            for($j = 0; $j < count($primes); $j++) {
+                if(isset($primes[$j])) {
+                    print $primes[$j];
+                    exit(0);
+                }
+            }
 		}
 	}
 	}
