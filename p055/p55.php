@@ -30,15 +30,15 @@ NOTE: Wording was modified slightly on 24 April 2007 to emphasize the theoretica
 **/
 
 
-function is_palindrome($i) {
-	$s1 = strval($i);
+function is_palindrome($n) {
+	$s1 = strval($n);
 	$s2 = strrev($s1);
 	return $s1 == $s2;
 
 }
 
-function reverse($i) {
-	return intval(strrev(strval($i)));
+function reverse($n) {
+	return intval(strrev(strval($n)));
 }
 
 $lychrelCount = 0;
@@ -54,7 +54,6 @@ for($i = 10; $i < 10000; $i++) {
 	if($iterations >= 50) $lychrelCount++;
 }
 
-print $lychrelCount . "\n";
+print $lychrelCount;
 
 ?>
-
