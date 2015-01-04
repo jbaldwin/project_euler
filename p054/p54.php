@@ -35,14 +35,14 @@ Hand	Player 1		Player 2		Winner
 	Highest card Ace	Highest Card Queend
 
 3	2D 9C AS AH AC		3D 6D 7D TD QD		Player 2
-	Three Aces		Flush with Diamonds
+	Three Aces          Flush with Diamonds
 
 4	4D 6S 9H QH QC		3D 6D 7H QD QS		Player 1
 	Pair of Queens		Pair of Queens
 	Highest card Nine	Highest Card Seven
 
 5	2H 2D 4C 4D 4S		3C 3D 3S 9S 9D		Player 1
-	Full House		Full House
+	Full House          Full House
 	With Three Fours	With Three Threes
 
 The file, poker.txt, contains one-thousand random hands dealt to two players.  Each line of the file
@@ -77,7 +77,6 @@ function high_card($hand) {
 	foreach($hand as $card) {
 		$high = max($high, $g_values[$card[0]]);
 	}
-	print "high card " . $high . "\n";
 	return $high;
 }
 
@@ -91,19 +90,19 @@ function one_pair($hand) {
 	for($j = $i + 1; $j < count($hand); $j++) {
 		if($i == $j) continue;
 		if($hand[$i][0] == $hand[$j][0]) {
-			print "found one pair\n";
-			
 			$pair = $g_values[$hand[$i][0]];
-			array_push($numbers, $pair);
+            $numbers[] = $pair;
 
 			$remaining = array();
-			for($k = 0; $k < count($hand); $k++)
-				if($g_values[$hand[$k][0]] != $pair)
-					array_push($remaining, $g_values[$hand[$k][0]]);
+			for($k = 0; $k < count($hand); $k++) {
+				if($g_values[$hand[$k][0]] != $pair) {
+                    $remaining[] = $g_values[$hand[$k][0]];
+                }
+            }
 
 			rsort($remaining, SORT_NUMERIC);
 			foreach($remaining as $r) {
-				array_push($numbers, $r);
+                $numbers[] = $r;
 			}
 			return $numbers;
 		}
@@ -129,10 +128,9 @@ function two_pair($hand) {
 				$second = $g_values[$hand[$i][0]];
 				$pairs = array($first, $second);
 				rsort($pairs, SORT_NUMERIC);
-				print "found two pair\n";
 				return $pairs;
 			}
-		} 
+		}
 	}
 	}
 
@@ -151,7 +149,6 @@ function three_of_a_kind($hand) {
 			}
 		}
 		if($count == 3) {
-			print "found three of a kind\n";
 			return $g_values[$hand[$i][0]];
 		}
 	}
@@ -163,18 +160,16 @@ function straight($hand) {
 
 	$cards = array();
 	for($i = 0; $i < count($hand); $i++) {
-		array_push($cards, $g_values[$hand[$i][0]]);
+		$cards[] = $g_values[$hand[$i][0]];
 	}
-	sort($cards, SORT_NUMERIC);
+	rsort($cards, SORT_NUMERIC);
 
 	for($i = 1; $i < count($cards); $i++) {
-		if($cards[$i - 1] + 1 != $cards[$i]) {
+		if($cards[$i - 1] - 1 != $cards[$i]) {
 			return false;
 		}
 	}
 
-	rsort($cards, SORT_NUMERIC);
-	print "found straight\n";
 	return $cards;
 }
 
@@ -190,7 +185,6 @@ function pflush($hand) {
 	$cards = array();
 	for($i = 0; $i < count($hand); $i++) array_push($cards, $g_values[$hand[$i][0]]);
 	rsort($cards, SORT_NUMERIC);
-	print "found flush\n";
 	return $cards;
 }
 
@@ -199,21 +193,19 @@ function full_house($hand) {
 
 	$numbers = array();
 	for($i = 0; $i < count($hand); $i++) {
-		array_push($numbers, $g_values[$hand[$i][0]]);
+		$numbers[] = $g_values[$hand[$i][0]];
 	}
 	rsort($numbers, SORT_NUMERIC);
 
 	if($numbers[0] == $numbers[1] && $numbers[0] == $numbers[2] &&
 	   $numbers[0] != $numbers[3] &&
 	   $numbers[3] == $numbers[4]) {
-		print "found full house\n";
 		return array($numbers[0], $numbers[3]);
 	}
 
 	if($numbers[0] == $numbers[1] &&
 	   $numbers[0] != $numbers[2] &&
 	   $numbers[2] == $numbers[3] && $numbers[2] == $numbers[4]) {
-		print "found full house\n";
 		return array($numbers[2], $numbers[0]);
 	}
 
@@ -237,13 +229,11 @@ function four_of_a_kind($hand) {
 				}
 			}
 
-			print "found four of a kind\n";
 			return array($g_values[$hand[$i][0]], $high_card);
 		}
 	}
 
 	return false;
-
 }
 
 function straight_flush($hand) {
@@ -252,7 +242,7 @@ function straight_flush($hand) {
 	$numbers = array();
 
 	for($i = 0; $i < count($hand); $i++) {
-		array_push($numbers, $g_values[$hand[$i][0]]);
+		$numbers[] = $g_values[$hand[$i][0]];
 		if($hand[0][1] != $hand[$i][1]) return false;
 	}
 	rsort($numbers, SORT_NUMERIC);
@@ -261,7 +251,6 @@ function straight_flush($hand) {
 		if($numbers[$i - 1] - 1 != $numbers[$i]) return false;
 	}
 
-	print "found straight flush\n";
 	return $numbers;
 }
 
@@ -312,22 +301,14 @@ $count = 0;
 foreach($hands as $hand) {
 	if(empty($hand)) continue;
 
-	print "\n";
-
 	$h2 = explode(" ", $hand);
 	$h1 = array_splice($h2, 0, 5);
 
-	print $hand . "\n";
-
 	if(winner($h1, $h2)) {
-		 $count++;
-		print " player 1 wins\n";
-	} else {
-		print " player 2 wins\n";
+		$count++;
 	}
 }
 
-print $count . "\n";
+print $count;
 
 ?>
-
