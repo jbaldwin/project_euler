@@ -17,6 +17,7 @@ for($b = 90; $b < 100; $b++) {
 	
 	$s = gmp_strval($c);
 	$slen = strlen($s);
+
 	$sum = 0;
 	for($i = 0; $i < $slen; $i++) {
 		$sum += intval($s[$i]);
@@ -27,6 +28,4 @@ for($b = 90; $b < 100; $b++) {
 }
 }
 
-print $maxSum . "\n";
-?>
-
+print $maxSum;
