@@ -55,3 +55,17 @@ unsigned __int128 uint128_power(int n, int exp) {
     return sum;
 }
 
+/**
+ * n^exp
+ * @param int n Base
+ * @param int exp Exponent
+ * @return __int128 power result.
+ **/
+__int128 int128_power(int n, int exp) {
+    __int128 sum = 1;
+    for(int i = 0; i < exp; i++) {
+        sum *= n;
+    }
+    return sum;
+}
+

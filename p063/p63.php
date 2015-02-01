@@ -21,7 +21,6 @@ for($pow = 1; $pow < 22; $pow++) {
 }
 }
 
-print $total . "\n";
+print $total;
 
 ?>
-
