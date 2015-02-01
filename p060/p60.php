@@ -80,7 +80,8 @@ for($e = $d + 2; $e < $stop; $e += 2) {
     if(!is_prime_cache($ec)) continue;
     if(!is_prime_cache($ed)) continue;
 
-    print $a . " " . $b . " " . $c . " " . $d . " " . $e . " sum=" . ($a + $b + $c + $d + $e) . "\n";
+    print ($a + $b + $c + $d + $e);
+    //print $a . " " . $b . " " . $c . " " . $d . " " . $e . " sum=" . ($a + $b + $c + $d + $e) . "\n";
     die();
 }
 }
@@ -90,4 +91,3 @@ for($e = $d + 2; $e < $stop; $e += 2) {
 
 
 ?>
-
