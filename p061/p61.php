@@ -39,7 +39,7 @@ $types = array(
     "hexagonal" => array(),
     "heptagonal" => array(),
     "octagonal" => array()
-    );
+);
 
 class Value {
     public $n;
@@ -56,7 +56,7 @@ foreach($types as $type => $values) {
     do {
         $v = $type($n);
         if($v >= 1000 && $v < 10000) {
-            array_push($types[$type], new Value($n, $v));
+            $types[$type][] = new Value($n, $v);
         }
         $n++;
     } while($v < 10000);
@@ -85,13 +85,13 @@ function cyclic($types, $remaining, $aChain) {
 
         foreach($aChain as $value) {
             $sum += $value->v;
-            print $value->v . ", ";
+            //print $value->v . ", ";
         }
-        print "\n";
-        foreach($aChain as $value) {
-            print $value->n . ", ";
-        }
-        print "sum=" . $sum . "\n";
+        //print "\n";
+        //foreach($aChain as $value) {
+        //    print $value->n . ", ";
+        //}
+        print $sum;
     }
 
     $current = strval($aChain[count($aChain) - 1]->v);
@@ -124,13 +124,4 @@ foreach($types["triangle"] as $triangle) {
     cyclic($types, $remaining, array($triangle));
 }
 
-
-/**foreach($types as $type => $values) {
-    print $type . "\n";
-    foreach($values as $value) {
-        print "\t" . $value . "\n";
-    }
-}**/
-
 ?>
-
