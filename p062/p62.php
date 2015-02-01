@@ -15,7 +15,7 @@ $stop = 10000;
 
 function create_permutation_table($s) {
     $table = array(
-        '0' => 0, 
+        '0' => 0,
         '1' => 0,
         '2' => 0,
         '3' => 0,
@@ -55,10 +55,9 @@ for($i = $start; $i < $stop; $i++) {
 
 foreach($cube_counts as $c) {
 	if($c[1] >= 5) {
-		print ($c[0] * $c[0] * $c[0]) . "\n";
+		print ($c[0] * $c[0] * $c[0]);
 		break;
 	}
 }
 
 ?>
-

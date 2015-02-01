@@ -1,12 +1,16 @@
 #include <stdlib.h>
 #include <stdio.h>
+#ifdef __MACH__
+#include <malloc/malloc.h>
+#else
 #include <malloc.h>
+#endif
 #include <memory.h>
 #include <stdbool.h>
 
 #include <glib.h>
 
-#include <proc/readproc.h>
+// #include <proc/readproc.h>
 
 typedef struct cube_t {
 	unsigned int matches;
@@ -55,7 +59,7 @@ char* create_key(int* digits, int num_digits) {
 void find(gpointer key, gpointer value, gpointer user_data) {
 	cube_t* cube = (cube_t*)value;
 	if(cube->matches >= 5) {
-		printf("%llu\n", cube->i * cube->i * cube->i);
+		printf("%llu", cube->i * cube->i * cube->i);
 		exit(0);
 	}
 }
