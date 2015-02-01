@@ -38,11 +38,6 @@ int main(int argc, char* argv[]) {
         int nlen = strlen(n_digits);
         int dlen = strlen(d_digits);
 
-        //mpz_out_str(stdout, 10, n2);
-        //printf("\t");
-        //mpz_out_str(stdout, 10, d2);
-        //getc(stdin);
-
         if(nlen > dlen) {
             count++;
         }
