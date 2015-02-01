@@ -21,11 +21,14 @@ In the first one-thousand expansions, how many fractions contain a numerator wit
 **/
 
 // numerator   is 2 * (n - 1) + (n - 2)
-// denominator is 2 * (n - 1) + (n - 2)
+// denominator is 2 * (d - 1) + (d - 2)
 
 $fractions = array(
 	array("1", "1"),
-	array("3", "2"));
+    array("3", "2")
+);
+
+$stdin = fopen("php://stdin" ,'r');
 
 $count = 0;
 for($i = 2; $i <= 1000; $i++) {
@@ -34,12 +37,12 @@ for($i = 2; $i <= 1000; $i++) {
 	$d = bcadd(bcmul($fractions[$i - 1][1], "2"), $fractions[$i - 2][1]);
 	$fractions[$i] = array($n, $d);
 
+    // print "$n\t$d";
+    // fgetc($stdin);
+
 	if(strlen($n) > strlen($d)) {
 		$count++;
 	}
 }
 
-print $count . "\n";
-
-?>
-
+print $count;
