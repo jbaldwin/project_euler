@@ -25,15 +25,6 @@ and the knowledge that the plain text must contain common English words, decrypt
 find the sum of the ASCII values in the original text.
 **/
 
-
-function _decrypt($encrypted, $key) {
-	$decrypted = "";
-	for($i = 0; $i < count($encrypted); $i++) {
-		$decrypted .= chr(($encrypted[$i] ^ $key[$i % count($key)]));
-	}
-	return $decrypted;
-}
-
 function decrypt($encrypted) {
 	for($a = 97; $a <= 122; $a++) {
 	for($b = 97; $b <= 122; $b++) {
@@ -45,9 +36,8 @@ function decrypt($encrypted) {
 		}
 
 		if(strstr($plaintext, " the ") != FALSE) {
-			print "key=" . chr($a) . chr($b) . chr($c) . "\n";
 			return $plaintext;
-		}		
+		}
 	}
 	}
 	}
@@ -63,7 +53,6 @@ $sum = 0;
 for($i = 0; $i < strlen($plaintext); $i++) {
 	$sum += ord($plaintext[$i]);
 }
-print $sum . "\n";
+print $sum;
 
 ?>
-
