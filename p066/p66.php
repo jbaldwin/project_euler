@@ -33,7 +33,7 @@ for($D = 2; $D <= 1000; $D++) {
     $d = gmp_init(1);
     $a = $limit;
 
-    $numm1 = gmp_init(1);;
+    $numm1 = gmp_init(1);
     $num = $a;
 
     $denm1 = gmp_init(0);
