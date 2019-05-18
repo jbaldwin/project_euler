@@ -111,49 +111,45 @@ auto magic5gonring(bool print_all_solutions) -> uint64_t
         numbers,
         [&results](const auto& p)
         {
-            std::array<int, 3> line1{p[0], p[1], p[2]};
-            std::array<int, 3> line2{p[3], p[2], p[4]};
-            std::array<int, 3> line3{p[5], p[4], p[6]};
-            std::array<int, 3> line4{p[7], p[6], p[8]};
-            std::array<int, 3> line5{p[9], p[8], p[1]};
+            std::array<std::array<int, 3>, 5> lines{
+                std::array<int, 3>{p[0], p[1], p[2]},
+                std::array<int, 3>{p[3], p[2], p[4]},
+                std::array<int, 3>{p[5], p[4], p[6]},
+                std::array<int, 3>{p[7], p[6], p[8]},
+                std::array<int, 3>{p[9], p[8], p[1]}
+            };
 
-            auto line1_total = sum(line1);
-            auto line2_total = sum(line2);
-            auto line3_total = sum(line3);
-            auto line4_total = sum(line4);
-            auto line5_total = sum(line5);
+            std::array<uint64_t, 5> totals{sum(lines[0]), sum(lines[1]), sum(lines[2]), sum(lines[3]), sum(lines[4])};
 
             if(
-                   line1_total == line2_total
-                && line1_total == line3_total
-                && line1_total == line4_total
-                && line1_total == line5_total
+                   totals[0] == totals[1]
+                && totals[0] == totals[2]
+                && totals[0] == totals[3]
+                && totals[0] == totals[4]
             )
             {
                 // We've got a valid combo!
 
-                auto& sets = results[line1_total];
+                // Find the lowest first char for ordering of the lines per problem requirements.
+                size_t start_idx{0};
+                int min_value = std::numeric_limits<int>::max();
+                for(size_t i = 0; i < 5; ++i)
+                {
+                    if(lines[i][0] < min_value)
+                    {
+                        min_value = lines[i][0];
+                        start_idx = i;
+                    }
+                }
 
-                if(line1[0] < line2[0] && line1[0] < line3[0] && line1[0] < line4[0] && line1[0] < line5[0])
+                std::array<std::array<int, 3>, 5> result{};
+                for(size_t i = 0; i < 5; ++i, ++start_idx)
                 {
-                    sets.insert({line1, line2, line3, line4, line5});
+                    result[i] = lines[start_idx % 5];
                 }
-                else if(line2[0] < line1[0] && line2[0] < line3[0] && line2[0] < line4[0] && line2[0] < line5[0])
-                {
-                    sets.insert({line2, line3, line4, line5, line1});
-                }
-                else if(line3[0] < line2[0] && line3[0] < line1[0] && line3[0] < line4[0] && line3[0] < line5[0])
-                {
-                    sets.insert({line3, line4, line5, line1, line2});
-                }
-                else if(line4[0] < line2[0] && line4[0] < line3[0] && line4[0] < line1[0] && line4[0] < line5[0])
-                {
-                    sets.insert({line4, line5, line1, line2, line3});
-                }
-                else
-                {
-                    sets.insert({line5, line1, line2, line3, line4});
-                }
+
+                auto& sets = results[totals[0]];
+                sets.insert(result);
             }
         }
     );
@@ -209,6 +205,39 @@ auto magic5gonring(bool print_all_solutions) -> uint64_t
     return max;
 }
 
+/**
+ * Consider the following "magic" 3-gon ring, filled with the numbers 1 to 6, and each line adding to nine.
+ *
+ * 4
+ *     3
+ *   1  2  6
+ * 5
+ *
+ * Working clockwise, and starting from the group of three with the numerically lowest external node (4,3,2 in this example),
+ * each solution can be described uniquely.  For example, the above solution can be described by the set: 4,3,2; 6,2,1;, 5,1,3.
+ *
+ * It is possible to complete the ring with four different totals: 9, 10, 11, and 12.  There are eight solutions in total.
+ *
+ * Total    Solution Set
+ * 9        4,2,3; 5,3,1; 6,1,2
+ * 9        4,3,2; 6,2,1; 5,1,3
+ * 10       2,3,5; 4,5,1; 6,1,3
+ * 10       2,5,3; 6,3,1; 4,1,5
+ * 11       1,4,6; 3,6,2; 5,2,4
+ * 11       1,6,4; 5,4,2; 3,2,6
+ * 12       1,5,6; 2,6,4; 3,4,5
+ * 12       1,6,5; 3,5,4; 2,4,6
+ *
+ * By concatenating each group it is possible to form 9-digit strings; the maximum string for a 3-gon ring is 432621513.
+ *
+ * Using the numbers 1 to 10, and depending on arrangements, it is possible to form 16- and 17-digit strings.  What is the
+ * maximum 16-digit string for a "magic" 5-gon ring?
+ *
+ *
+ * *Developer Notes*
+ * The line ordering is as follows: (this is not a valid magic 5 gon, just the line index ordering).
+ * 1,2,3; 4,3,5; 6,5,7; 8,7,9; 10,9,2
+ */
 int main()
 {
     std::cout << magic5gonring(false);
