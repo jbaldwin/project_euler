@@ -6,7 +6,7 @@
 #include <string>
 #include <numeric>
 
-#include <lib/permutations.hpp>
+#include <lib/Permutations.hpp>
 #include <gmpxx.h>
 
 template<typename DataType>

@@ -4,7 +4,18 @@ project(jbaldwin_project_euler CXX C)
 find_library(gmp REQUIRED)
 find_library(gmpxx REQUIRED)
 
-add_library(libcpp lib/permutations.hpp)
+add_library(libc
+    lib/permutations.h
+    lib/prime.h
+)
+set_target_properties(libc PROPERTIES LINKER_LANGUAGE C)
+target_include_directories(libc PUBLIC .)
+
+add_library(libcpp
+    lib/Numeric.hpp
+    lib/Permutations.hpp
+    lib/Prime.hpp
+)
 set_target_properties(libcpp PROPERTIES LINKER_LANGUAGE CXX)
 target_include_directories(libcpp PUBLIC .)
 
@@ -24,5 +35,8 @@ target_link_libraries(p066 gmp gmpxx)
 add_executable(p067xx p067/p067.cpp)
 
 add_executable(p068xx p068/p068.cpp)
-set_target_properties(p068xx PROPERTIES LINKER_LANGUAGE CXX)
 target_link_libraries(p068xx libcpp)
+
+add_executable(p069xx p069/p069.cpp)
+target_link_libraries(p069xx libcpp libc pthread)
+
