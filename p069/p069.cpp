@@ -34,14 +34,14 @@ int main()
     for(size_t n = 2; n <= 1'000'000; ++n)
     {
         double n_div_phi_n{0.0};
+        double phi_n{1.0};
 
         if(lib::is_prime(n))
         {
             /**
              * When the number is prime the phi(n) = n - 1.
              */
-            uint64_t phi_n = n - 1;
-            n_div_phi_n = ((double)n) / phi_n;
+            phi_n = n - 1;
         }
         else
         {
@@ -50,14 +50,14 @@ int main()
              */
             auto pfactors = lib::prime_factors(n);
 
-            double phi_n = n;
+            phi_n = n;
             for(auto pf : pfactors)
             {
                 phi_n *= (1 - (((double)1) / pf));
             }
-
-            n_div_phi_n = ((double)n) / phi_n;
         }
+
+        n_div_phi_n = ((double)n) / phi_n;
 
         if(n_div_phi_n > max_n_div_phi_n)
         {

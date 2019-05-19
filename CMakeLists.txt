@@ -38,5 +38,10 @@ add_executable(p068xx p068/p068.cpp)
 target_link_libraries(p068xx libcpp)
 
 add_executable(p069xx p069/p069.cpp)
-target_link_libraries(p069xx libcpp libc pthread)
+target_link_libraries(p069xx libcpp)
+
+add_executable(p070xx p070/p070.cpp)
+target_link_libraries(p070xx libcpp)
+
+
 
