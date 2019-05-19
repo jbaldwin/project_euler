@@ -6,6 +6,29 @@
 #include <vector>
 #include <atomic>
 
+int main()
+{
+    uint64_t n = 1'000'000;
+    size_t max{0};
+
+    for(uint64_t i = n; i > 0; --i)
+    {
+        if(lib::gcd(i, 7) == 1)
+        {
+            uint64_t num = 3 * i - 1;
+            uint64_t den = 7 * i;
+            uint64_t gcd = lib::gcd(num, den);
+            if(den / gcd < n)
+            {
+                max = std::max(max, num / gcd);
+            }
+        }
+    }
+
+    std::cout << max;
+    return 0;
+}
+
 struct Fraction
 {
     Fraction(uint64_t n, uint64_t d)
@@ -49,7 +72,7 @@ struct Fraction
  * By listing the set of reduced proper fractions for d <= 1,000,000 in ascending order of size,
  * find the numerator of the fraction immediately to the left of 3/7.
  */
-int main()
+int main1()
 {
     Fraction three_sevenths{3, 7};
     Fraction global_to_the_left{2, 5};
