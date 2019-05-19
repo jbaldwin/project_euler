@@ -34,7 +34,11 @@ int main()
 
         if(lib::is_prime(n))
         {
-            phi_n = n - 1;
+            /**
+             * By nature n - 1 cannot be a permutation, skip all primes.
+             */
+            // phi_n = n - 1;
+            continue;
         }
         else
         {
@@ -47,31 +51,8 @@ int main()
             }
         }
 
-        auto s1 = std::to_string(n);
-        auto s2 = std::to_string(static_cast<uint64_t>(phi_n));
-
-        // Can't be permutations if they differ in length.
-        if(s1.length() != s2.length())
-        {
-            continue;
-        }
-
-        // Check if they are permutations of each other if their
-        // characters can be sorted in the same manner.
-        std::multiset<char> s1_set;
-        std::multiset<char> s2_set;
-
-        for(auto c : s1)
-        {
-            s1_set.insert(c);
-        }
-        for(auto c : s2)
-        {
-            s2_set.insert(c);
-        }
-
         // Are these permutations of each other?
-        if(s1_set == s2_set)
+        if(lib::is_permutation(n, static_cast<uint64_t>(phi_n)))
         {
             n_div_phi_n = ((double)n) / phi_n;
 

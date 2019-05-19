@@ -52,4 +52,18 @@ auto permutate(
     _permutate<DataType, DataLength>(empty_prefix, data, 0, DataLength, callback);
 }
 
+/**
+ * Determines if a and b are permutations of each other.
+ */
+bool is_permutation(uint64_t a, uint64_t b)
+{
+    std::array<uint64_t, 10> count_a{};
+    std::array<uint64_t, 10> count_b{};
+
+    do { ++count_a[a % 10]; } while (a /= 10);
+    do { ++count_b[b % 10]; } while (b /= 10);
+
+    return count_a == count_b;
+}
+
 } // namespace lib
