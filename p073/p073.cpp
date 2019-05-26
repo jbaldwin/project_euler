@@ -6,29 +6,6 @@
 #include <vector>
 #include <atomic>
 
-int main()
-{
-    uint64_t n = 1'000'000;
-    size_t max{0};
-
-    for(uint64_t i = n; i > 0; --i)
-    {
-        if(lib::gcd(i, 7) == 1)
-        {
-            uint64_t num = 3 * i - 1;
-            uint64_t den = 7 * i;
-            uint64_t gcd = lib::gcd(num, den);
-            if(den / gcd < n)
-            {
-                max = std::max(max, num / gcd);
-            }
-        }
-    }
-
-    std::cout << max;
-    return 0;
-}
-
 struct Fraction
 {
     Fraction(uint64_t n, uint64_t d)
@@ -58,7 +35,7 @@ struct Fraction
 };
 
 /**
- * Ordered fractions
+ * Counting fractions in a range
  * Problem 71
  *
  * Consider the fraction, n/d, where n and d are positive integers.
@@ -67,17 +44,16 @@ struct Fraction
  * If we list the set of reduced proper fractions for d <= 8 in ascending order of size, we get:
  *  1/8, 1/7, 1/6, 1/5, 1/4, 2/7, 1/3, 3/8, 2/5, 3/7, 1/2, 4/7, 3/5, 5/8, 2/3, 5/7, 3/4, 4/5, 5/6, 6/7, 7/8
  *
- * It can be seen that 2/5 is the fraction immediately to the left of 3/7.
+ * It can be seen that there are 3 fractions between 1/3 and 1/2.
  *
- * By listing the set of reduced proper fractions for d <= 1,000,000 in ascending order of size,
- * find the numerator of the fraction immediately to the left of 3/7.
+ * How many fractions lie between 1/3 and 1/2 in the sorted set of reduced proper fractions for d <= 12,000?
  */
-int main1()
+int main()
 {
-    Fraction three_sevenths{3, 7};
-    Fraction global_to_the_left{2, 5};
+    Fraction lower_bound{1, 3};
+    Fraction upper_bound{1, 2};
     std::atomic<size_t> worker_position{0};
-    std::mutex rpf_lock;
+    std::atomic<size_t> g_count{0};
 
     std::vector<std::thread> workers;
 
@@ -88,18 +64,14 @@ int main1()
     for(size_t w = 0; w < WORKER_COUNT; ++w)
     {
         workers.emplace_back(
-            [&three_sevenths, &global_to_the_left, &worker_position, &rpf_lock]()
+            [&lower_bound, &upper_bound, &worker_position, &g_count]()
             {
-                Fraction local_to_the_left{1, 1};
-                {
-                    std::lock_guard<std::mutex> guard{rpf_lock};
-                    local_to_the_left = global_to_the_left;
-                }
-
                 while(worker_position < STOP)
                 {
                     size_t start_idx = worker_position.fetch_add(WORK_AMOUNT);
                     size_t stop_idx = start_idx + WORK_AMOUNT;
+
+                    size_t local_count{0};
 
                     if(__glibc_unlikely(start_idx == 0))
                     {
@@ -117,12 +89,12 @@ int main1()
                         {
                             // skip anything less than current left fraction
                             double value = ((double)n) / d;
-                            if(value <= local_to_the_left.value)
+                            if(value <= lower_bound.value)
                             {
                                 continue;
                             }
                             // stop entirely if the fraction is now 3/7 or greater.
-                            else if(value >= three_sevenths.value)
+                            else if(value >= upper_bound.value)
                             {
                                 break;
                             }
@@ -134,25 +106,12 @@ int main1()
                             auto hcf = lib::gcd(n, d);
                             if(hcf == 1)
                             {
-                                local_to_the_left.numerator = n;
-                                local_to_the_left.denominator = d;
-                                local_to_the_left.value = value;
+                                ++local_count;
                             }
                         }
                     }
 
-                    // Now update local/global copy to the new best value.
-                    {
-                        std::lock_guard<std::mutex> guard{rpf_lock};
-                        if(local_to_the_left.value > global_to_the_left.value)
-                        {
-                            global_to_the_left = local_to_the_left;
-                        }
-                        else
-                        {
-                            local_to_the_left = global_to_the_left;
-                        }
-                    }
+                    g_count += local_count;
                 }
             }
         );
@@ -162,7 +121,7 @@ int main1()
     {
         using namespace std::chrono_literals;
         std::this_thread::sleep_for(1000ms);
-        //std::cout << worker_position << "\n";
+        std::cout << worker_position << "\n";
     }
 
     for(auto& t : workers)
@@ -170,7 +129,7 @@ int main1()
         t.join();
     }
 
-    std::cout << global_to_the_left.numerator << "/" << global_to_the_left.denominator;
+    std::cout << g_count;
 
     return 0;
 }
