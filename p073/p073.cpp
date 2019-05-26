@@ -58,7 +58,7 @@ int main()
     std::vector<std::thread> workers;
 
     constexpr size_t WORKER_COUNT = 8;
-    constexpr size_t STOP = 1'000'000;
+    constexpr size_t STOP = 12'000;
     constexpr size_t WORK_AMOUNT = 1000;
 
     for(size_t w = 0; w < WORKER_COUNT; ++w)
