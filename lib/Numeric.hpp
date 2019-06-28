@@ -74,5 +74,26 @@ auto factors(uint64_t n) -> const std::set<uint64_t>&
     return cache.emplace(n, std::move(factors)).first->second;
 }
 
+auto factorial(uint64_t n) -> uint64_t
+{
+    thread_local std::map<uint64_t, uint64_t> results{{1, 1}};
+
+    auto found = results.find(n);
+    if(found != results.end())
+    {
+        return found->second;
+    }
+
+    uint64_t value{1};
+    for(uint64_t i = 2; i <= n; ++i)
+    {
+        value *= i;
+    }
+
+    results[n] = value;
+
+    return value;
+};
+
 } // namespace lib
 
