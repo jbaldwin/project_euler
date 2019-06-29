@@ -53,4 +53,7 @@ add_executable(p073xx p073/p073.cpp)
 target_link_libraries(p073xx libcpp pthread)
 
 add_executable(p074xx p074/p074.cpp)
-target_link_libraries(p074xx libcpp pthread gmp)
+target_link_libraries(p074xx libcpp)
+
+add_executable(p075xx p075/p075.cpp)
+target_link_libraries(p075xx libcpp)
