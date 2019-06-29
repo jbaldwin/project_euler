@@ -63,3 +63,6 @@ target_link_libraries(p076xx libcpp)
 
 add_executable(p077xx p077/p077.cpp)
 target_link_libraries(p077xx libcpp)
+
+add_executable(p078xx p078/p078.cpp)
+target_link_libraries(p078xx libcpp)
